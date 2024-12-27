@@ -23,7 +23,7 @@ void welcome_page(time_t begin, time_t now){
 
     if ( time_elapsed > 7){
         welcome_phase = 0;
-        singup_or_singin_phase = 1;
+        signup_or_signin_phase = 1;
         attroff(A_BOLD | A_BLINK);
         clear();
     }
