@@ -7,7 +7,7 @@
 
 // Phases
 int welcome_phase = 1;
-int singup_or_singin_phase = 0;
+int signup_or_signin_phase = 0;
 
 // Global Variables
 int hover_singup = 1;
@@ -142,7 +142,7 @@ int main(){
             welcome_page(begin,now);
         }
 
-        else if (singup_or_singin_phase){
+        else if (signup_or_signin_phase){
             signup_or_signin_page();
         }
 
