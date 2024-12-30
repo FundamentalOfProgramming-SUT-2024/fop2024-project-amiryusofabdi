@@ -3,6 +3,7 @@
 #include <time.h>
 #include <ncurses.h>
 #include <string.h>
+#include <unistd.h>
 
 // Phases
 int welcome_phase = 0;      // !!!!!!!!!!!
