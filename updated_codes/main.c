@@ -11,6 +11,7 @@ int signup_or_signin_phase = 1;  //!!!!!!!!!!
 int signup_phase = 0;
 int signin_phase = 0;
 int guest_phase = 0;
+int menu_phase = 0;
 
 
 

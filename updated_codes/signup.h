@@ -1,6 +1,6 @@
 #include "newaccount.h"
 
-int username_isok(char username[]){
+int username_isok(char username[]){                     // CHECK !!!!!!!!!!!!!!!!!!!!!!!!
 
     FILE *fptr;
     fptr = fopen("data.txt","r");
@@ -187,6 +187,10 @@ void signup_page(){
     }
     
     newaccount(username,email,password);
+
+    clear();
+    signup_phase = 0;
+    menu_phase = 1;
 
 
 }
