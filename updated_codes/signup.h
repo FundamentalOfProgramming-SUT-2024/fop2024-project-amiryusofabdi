@@ -3,7 +3,11 @@
 int username_isok(char username[]){                     // CHECK !!!!!!!!!!!!!!!!!!!!!!!!
 
     FILE *fptr;
-    fptr = fopen("data.txt","r");
+    fptr = fopen("usernames.txt","r");
+
+    int len = strlen(username);
+    username[len] = '\n';    
+    username[len+1] = '\0';
 
     char str[100];
 

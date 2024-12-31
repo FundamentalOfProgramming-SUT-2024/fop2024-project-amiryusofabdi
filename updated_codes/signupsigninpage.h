@@ -52,10 +52,10 @@ void signup_or_signin_page(){
             if ( signup_hover ){
                 signup_phase = 1;
             }
-            else if ( signup_hover ){
+            else if ( signin_hover ){
                 signin_phase = 1;
             }
-            else if ( signup_hover ){
+            else if ( guest_hover ){
                 guest_phase = 1;
             }
 
@@ -78,7 +78,7 @@ void signup_or_signin_page(){
 
     }
 
-    else if ( signin_hover ){
+    else if ( signin_hover && signup_or_signin_phase){
 
         move(2*LINES/5,COLS/(2.2));
         printw("SIGN UP");        
@@ -93,7 +93,7 @@ void signup_or_signin_page(){
 
     }
 
-    else if ( guest_hover ){
+    else if ( guest_hover && signup_or_signin_phase){
 
         move(2*LINES/5,COLS/(2.2));
         printw("SIGN UP");      
@@ -106,6 +106,9 @@ void signup_or_signin_page(){
         printw("GUEST");
         attroff(A_STANDOUT|A_BLINK);
 
+    }
+    else{
+        clear();
     }
 
     

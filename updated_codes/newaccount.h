@@ -12,7 +12,7 @@ void newaccount(char username[], char email[], char password[]) {
     fprintf(fptr_file_password,"\n");
 
     FILE *fptr_file_email;
-    fptr_file_email = fopen("email.txt","a");
+    fptr_file_email = fopen("emails.txt","a");
     fprintf(fptr_file_email,email);
     fprintf(fptr_file_email,"\n");
 
