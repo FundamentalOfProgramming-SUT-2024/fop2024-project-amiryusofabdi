@@ -3,16 +3,21 @@ int username_exists(char username[]){
     FILE *fptr;
     fptr = fopen("usernames.txt","r");
 
-    int len = strlen(username);
-    username[len] = '\n';    
-    username[len+1] = '\0';
+    int flag = 0;
 
     char str[100];
-    int flag = 0;
+    char newstr[100];
+
 
     while ( fgets(str,100,fptr) ){
         
-        if ( strcmp(str,username) == 0 ){
+        for (int i = 4; i < strlen(str)-1; i++){
+            newstr[i-4] = str[i];
+        }
+        
+        newstr[strlen(str)-5] = '\0';
+
+        if ( strcmp(newstr,username) == 0 ){
             flag = 1;
         }
 

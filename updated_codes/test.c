@@ -5,32 +5,40 @@
 #include <string.h>
 #include <unistd.h>
 
-char str[4] = "000-";
+int username_isok(char username[]){                     
 
-char* Int2String(int num){
-    
-    
-    int index = 2;
+    FILE *fptr;
+    fptr = fopen("usernames.txt","r");
 
-    while (num > 0){
-        str[index] = (char) ('0'+ num%10);
-        index --;
-        num /= 10;
+
+    char str[100];
+    char newstr[100];
+
+    
+
+    while ( fgets(str,100,fptr) ){
+        
+        for (int i = 4; i < strlen(str)-1; i++){
+            newstr[i-4] = str[i];
+        }
+        
+        newstr[strlen(str)-5] = '\0';
+
+        if ( strcmp(newstr,username) == 0 ){
+            return 0;
+        }
+
     }
 
-    return str;
-
+    return 1;
 }
 
-
 int main(){
-    srand(time(NULL));
-    int num = rand()%1000;
 
-    char* st = Int2String(num);
-
-    printf("%d    %s\n",num,st);
-
+    char username[100];
+    scanf("%s",username);
+    printf("---------\n");
+    printf("%d\n",username_isok(username));
 
     return 0;
 }

@@ -1,19 +1,25 @@
 #include "newaccount.h"
 
-int username_isok(char username[]){                     // CHECK !!!!!!!!!!!!!!!!!!!!!!!!
+int username_isok(char username[]){                     
 
     FILE *fptr;
     fptr = fopen("usernames.txt","r");
 
-    int len = strlen(username);
-    username[len] = '\n';    
-    username[len+1] = '\0';
 
     char str[100];
+    char newstr[100];
+
+    
 
     while ( fgets(str,100,fptr) ){
         
-        if ( strcmp(str,username) == 0 ){
+        for (int i = 4; i < strlen(str)-1; i++){
+            newstr[i-4] = str[i];
+        }
+        
+        newstr[strlen(str)-5] = '\0';
+
+        if ( strcmp(newstr,username) == 0 ){
             return 0;
         }
 
@@ -100,6 +106,7 @@ int email_isok(char email[]){
 
 }
 
+
 void signup_page(){
 
     echo();
@@ -159,18 +166,50 @@ void signup_page(){
 
     move(LINES/5 + 5, COLS/3 + 10);
     scanw("%s",password);
-
+    
     while ( !password_isok(password) ){
         
-        move(LINES/5 + 5, COLS/3 + 10);
-        printw("Invalid Password! Try again.");
-        refresh();
-        usleep(1000000);
-        move(LINES/5 + 5, COLS/3 + 10);
-        printw("                            ");
-        move(LINES/5 + 5, COLS/3 + 10);
-        scanw("%s",password);
 
+        if ( strcmp(password,"random") == 0 ){
+        
+            srand(time(NULL));
+            int length;
+
+            do{
+                length = rand()%15;
+            }while( length < 7 );
+            
+            password[length] = '\0';
+
+            for (int i = 0; i < length; i++){
+
+                int ascii;
+                do{
+                    ascii = rand()%126;
+                }while (ascii < 33);
+
+                password[i] = (char)ascii;
+
+            }
+            move(LINES/5 + 5, COLS/3 + 10);
+            printw("%s",password);
+            break;
+
+        }
+
+        else{
+            
+            move(LINES/5 + 5, COLS/3 + 10);
+            printw("Invalid Password! Try again.");
+            refresh();
+            usleep(1000000);
+            move(LINES/5 + 5, COLS/3 + 10);
+            printw("                            ");
+            move(LINES/5 + 5, COLS/3 + 10);
+            scanw("%s",password);
+
+
+        }
     }
 
 

@@ -52,6 +52,10 @@ int main(){
             signin_page();
         }
 
+        if ( menu_phase ){
+            printw("fesfs");
+        }
+
         refresh();
     }
 
