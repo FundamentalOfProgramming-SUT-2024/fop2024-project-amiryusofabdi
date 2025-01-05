@@ -22,8 +22,12 @@ int continue_prevgame_phase = 0;
 int scoreboard_phase = 0;
 int profile_phase = 0;
 int setting_phase = 0;
+int room_count;
 
 
+// BOARD
+
+char** board;
 
 // Functions
 
@@ -38,6 +42,8 @@ int setting_phase = 0;
 
 // Main
 int main(){
+
+   
 
     initscr();
     curs_set(0);
@@ -69,7 +75,14 @@ int main(){
         }
 
         if ( newgame_phase ){
-            createandwritemap();
+
+            srand(time(NULL));
+            room_count = 6 + rand() % 4;
+            create_rooms();
+            //create_doors();
+            //create_gameboard();
+            // printrooms();
+            //printboard();
             newgame_phase = 0;
             continue_prevgame_phase = 1;
         }
