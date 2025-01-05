@@ -4,6 +4,10 @@
         "unistd.h": "c",
         "ncurses.h": "c",
         "stdio.h": "c",
-        "time.h": "c"
+        "time.h": "c",
+        "signin.h": "c",
+        "stdlib.h": "c",
+        "signupsigninpage.h": "c",
+        "cstdlib": "cpp"
     }
 }
