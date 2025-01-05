@@ -6,8 +6,8 @@
 #include <unistd.h>
 
 // Phases
-int welcome_phase = 0;      // !!!!!!!!!!!
-int signup_or_signin_phase = 1;  //!!!!!!!!!!
+int welcome_phase = 1;      
+int signup_or_signin_phase = 0; 
 int signup_phase = 0;
 int signin_phase = 0;
 int guest_phase = 0;
@@ -36,9 +36,9 @@ int main(){
 
         time_t now = time(NULL);
 
-        // if ( welcome_phase ){
-        //     welcome_page(begin,now);
-        // }
+        if ( welcome_phase ){
+            welcome_page(begin,now);
+        }
 
         if ( signup_or_signin_phase ){
             signup_or_signin_page();
