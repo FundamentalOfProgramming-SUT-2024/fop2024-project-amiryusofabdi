@@ -103,48 +103,6 @@ void create_rooms(){
     }while ( room_colapse() );
 
 
-    // for (int i = 0; i < room_count; i++){
-        
-
-        
-
-    //     for (int j = 0; j < rooms[i].length; j++){
-
-    //         move(rooms[i].TopLeft_y,rooms[i].TopLeft_x + j);
-
-    //         printw("_");
-
-    //     }
-
-    //     for (int j = 0; j <= rooms[i].length; j++){
-
-    //         move(rooms[i].TopLeft_y+rooms[i].width , rooms[i].TopLeft_x + j);
-
-    //         printw("_");
-            
-    //     }
-
-    //     for (int j = 0; j < rooms[i].width; j++){
-
-    //         move(rooms[i].TopLeft_y + j+1 ,rooms[i].TopLeft_x);
-
-    //         printw("|");
-            
-    //     }
-        
-    //     for (int j = 0; j < rooms[i].width; j++){
-
-    //         move(rooms[i].TopLeft_y + j+1 ,rooms[i].TopLeft_x + rooms[i].length);
-
-    //         printw("|");
-            
-    //     }
-
-        
-    // }
-
-
-
 }
 
 
@@ -252,8 +210,8 @@ void create_gameboard(){
 
 
             board[rooms[i].TopLeft_y][rooms[i].TopLeft_x + j] = '_';
-
-
+        
+            
         }
 
         for (int j = 0; j <= rooms[i].length; j++){
@@ -279,6 +237,14 @@ void create_gameboard(){
             
         }
 
+        for ( int j = 0; j < 2; j++ ){
+
+
+            // move(rooms[i].doors[j][1],rooms[i].doors[j][0]);
+            board[rooms[i].doors[j][1]][rooms[i].doors[j][0]] = '+';
+            // printw("+");
+
+        }
 
         
     }

@@ -4,6 +4,8 @@
 #include <ncurses.h>
 #include <string.h>
 #include <unistd.h>
+#define cols 119
+#define lines 34
 
 // Phases
 int welcome_phase = 1;      
@@ -27,13 +29,12 @@ int room_count;
 
 // BOARD
 
-char** board;
+char board[lines][cols];
 
 // Functions
 
 #include "welcomepage.h"
 #include "signupsigninpage.h"
-
 #include "signup.h"
 #include "signin.h"
 #include "menu.h"
@@ -43,7 +44,6 @@ char** board;
 // Main
 int main(){
 
-   
 
     initscr();
     curs_set(0);
@@ -79,10 +79,10 @@ int main(){
             srand(time(NULL));
             room_count = 6 + rand() % 4;
             create_rooms();
-            //create_doors();
-            //create_gameboard();
-            // printrooms();
-            //printboard();
+            create_doors();
+            create_gameboard();
+            //printrooms();
+            printboard();
             newgame_phase = 0;
             continue_prevgame_phase = 1;
         }
