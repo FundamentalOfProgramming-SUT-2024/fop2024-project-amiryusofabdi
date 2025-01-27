@@ -19,7 +19,6 @@ void newaccount(char username[], char email[], char password[]) {
 
 
     // Generating ID
-    srand(time(NULL));
     int num = rand()%1000;
 
     char* id = Int2String(num);

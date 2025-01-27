@@ -58,8 +58,6 @@ int check_password(char username[],char password[]){
 
     }
 
-    // 5wp\7(aB
-    // Zx,(h9y
 
     id[3] = '\0';
     

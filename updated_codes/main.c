@@ -8,6 +8,7 @@
 #define lines 34
 
 // Phases
+int current_level = 0;
 int welcome_phase = 1;      
 int signup_or_signin_phase = 0; 
 int signup_phase = 0;
@@ -24,12 +25,20 @@ int continue_prevgame_phase = 0;
 int scoreboard_phase = 0;
 int profile_phase = 0;
 int setting_phase = 0;
-int room_count;
+int room_count = 6;
 
 
 // BOARD
 
-char board[lines][cols];
+typedef struct{
+    
+    int visible;
+    char type;
+
+
+} tile;
+
+tile board[4][lines][cols];
 
 // Functions
 
@@ -39,6 +48,7 @@ char board[lines][cols];
 #include "signin.h"
 #include "menu.h"
 #include "newgame.h"
+#include "printmap.h"
 
 
 // Main
@@ -49,6 +59,7 @@ int main(){
     curs_set(0);
     time_t begin = time(NULL);
     keypad(stdscr,TRUE);
+    srand(time(NULL));
 
     while (1){
 
@@ -71,21 +82,26 @@ int main(){
         // }
 
         if ( menu_phase ){
-            menu_page();
+            menu_page();        
         }
 
         if ( newgame_phase ){
 
-            srand(time(NULL));
-            room_count = 6 + rand() % 4;
-            create_rooms();
-            create_doors();
-            create_gameboard();
-            //printrooms();
-            printboard();
+            for (int i = 0; i < 4; i++){
+                create_gameboard(i);
+            }         
+
             newgame_phase = 0;
             continue_prevgame_phase = 1;
+
         }
+
+        if ( continue_prevgame_phase ){
+
+            printboard(current_level);
+
+        }
+
 
         refresh();
     }

@@ -6,107 +6,36 @@ typedef struct
     int TopLeft_y;
     int length;
     int width;
-    // int door_count=2;
     int doors[2][2];
 
 } Room ;
 
 
-
-Room rooms[];
-
-int room_colapse(){                                                 // bug dare !! age zir majmooe
-
-    for (int i = 0; i < room_count; i++){
-
-        for ( int j = 0; j < room_count; j++ ){
-
-            if ( i != j ){
-
-                if  (   (  rooms[j].TopLeft_x <= rooms[i].TopLeft_x && rooms[i].TopLeft_x <= (rooms[j].TopLeft_x + rooms[j].length)  )
-                    &&  (  rooms[j].TopLeft_y <= rooms[i].TopLeft_y && rooms[i].TopLeft_y <= (rooms[j].TopLeft_y + rooms[j].width)  )
-                    ){
-                    return 1;
-                } 
-
-                if  (   (  rooms[j].TopLeft_x <= ( rooms[i].TopLeft_x + rooms[i].length) && ( rooms[i].TopLeft_x + rooms[i].length) <= (rooms[j].TopLeft_x + rooms[j].length)  )
-                    &&  (  rooms[j].TopLeft_y <= rooms[i].TopLeft_y && rooms[i].TopLeft_y <= (rooms[j].TopLeft_y + rooms[j].width)  )
-                    ){
-                    return 1;
-                }
-
-                if  (   (  rooms[j].TopLeft_x <= rooms[i].TopLeft_x && rooms[i].TopLeft_x <= (rooms[j].TopLeft_x + rooms[j].length)  )
-                    &&  (  rooms[j].TopLeft_y <= (rooms[i].TopLeft_y + rooms[i].width) && (rooms[i].TopLeft_y + rooms[i].width) <= (rooms[j].TopLeft_y + rooms[j].width)  )
-                    ){
-                    return 1;
-                }
-
-                if  (   (  rooms[j].TopLeft_x <= ( rooms[i].TopLeft_x + rooms[i].length) && ( rooms[i].TopLeft_x + rooms[i].length) <= (rooms[j].TopLeft_x + rooms[j].length)  )
-                    &&  (  rooms[j].TopLeft_y <= (rooms[i].TopLeft_y + rooms[i].width) && (rooms[i].TopLeft_y + rooms[i].width) <= (rooms[j].TopLeft_y + rooms[j].width)  )
-                    ){
-                    return 1;
-                }               
-
-            }
+Room rooms[6];
 
 
-        }
-
-    }
-
-    return 0;
-
-}
 
 void create_rooms(){
 
-    srand(time(NULL));
+    int MAX_LENGTH = COLS/3;
+    int MAX_WIDTH = LINES/2;
 
-    do{
+    for ( int i = 0; i < 6; i++ ){
 
-        for (int i = 0; i < room_count; i++){
+        rooms[i].length = rand() % (MAX_LENGTH-12) + 6;
+        rooms[i].width = rand() % (MAX_WIDTH-8) + 6;
 
+        rooms[i].TopLeft_x = (COLS/3 * (i%3)) + rand() % ( MAX_LENGTH - rooms[i].length );
+        rooms[i].TopLeft_y = (LINES/2 * (i/3))  + rand() % ( MAX_WIDTH - rooms[i].width );
 
-            int length,width;
-
-            do{
-                length = rand() % 15;
-            }while ( length < 6 );
-
-            do{
-                width = rand() % 15;
-            }while ( width < 6 );
-
-            rooms[i].length = length;
-            rooms[i].width = width;
-
-
-            int x,y;
-
-            do{
-                x = rand() % COLS ;         // y bayad az 5 bozorgtar bashe k massage haye bazi bala chap beshe
-            }while ( (x+length) >= COLS ); 
-            
-
-            do{
-                y = rand() % LINES;         // y bayad az 5 bozorgtar bashe k massage haye bazi bala chap beshe
-            }while ( y < 5 || (y + width) >= LINES) ;    
-
-            rooms[i].TopLeft_x = x;
-            rooms[i].TopLeft_y = y;
-
-            
-
-        }
-
-
-    }while ( room_colapse() );
+    }
 
 
 }
 
 
 void create_doors(){
+
 
     for (int i = 0; i < room_count; i++){
 
@@ -201,7 +130,10 @@ void create_doors(){
 
 }
 
-void create_gameboard(){
+void create_gameboard(int level){
+
+    create_rooms();
+    create_doors();
 
     for (int i = 0; i < room_count; i++){
         
@@ -209,7 +141,7 @@ void create_gameboard(){
         for (int j = 0; j < rooms[i].length; j++){
 
 
-            board[rooms[i].TopLeft_y][rooms[i].TopLeft_x + j] = '_';
+            board[level][rooms[i].TopLeft_y][rooms[i].TopLeft_x + j].type = '_';
         
             
         }
@@ -217,7 +149,7 @@ void create_gameboard(){
         for (int j = 0; j <= rooms[i].length; j++){
 
 
-            board[rooms[i].TopLeft_y+rooms[i].width][rooms[i].TopLeft_x + j] = '_';
+            board[level][rooms[i].TopLeft_y+rooms[i].width][rooms[i].TopLeft_x + j].type = '_';
             
         }
 
@@ -225,7 +157,7 @@ void create_gameboard(){
 
             
 
-            board[rooms[i].TopLeft_y + j+1][rooms[i].TopLeft_x] = '|';
+            board[level][rooms[i].TopLeft_y + j+1][rooms[i].TopLeft_x].type = '|';
             
         }
         
@@ -233,92 +165,18 @@ void create_gameboard(){
 
            
 
-            board[rooms[i].TopLeft_y + j+1][rooms[i].TopLeft_x + rooms[i].length] = '|';
+            board[level][rooms[i].TopLeft_y + j+1][rooms[i].TopLeft_x + rooms[i].length].type = '|';
             
         }
 
         for ( int j = 0; j < 2; j++ ){
 
 
-            // move(rooms[i].doors[j][1],rooms[i].doors[j][0]);
-            board[rooms[i].doors[j][1]][rooms[i].doors[j][0]] = '+';
-            // printw("+");
+            board[level][rooms[i].doors[j][1]][rooms[i].doors[j][0]].type = '+';
 
         }
 
         
     }
-
-}
-
-void printboard(){
-
-    for ( int i = 0; i < LINES; i++){
-
-        for (int j = 0; j < COLS; j++){
-
-            move(i,j);
-            printw("%c",board[i][j]);
-
-        }
-
-    }
-
-
-}
-
-
-void printrooms(){
-
-
-    for (int i = 0; i < room_count; i++){
-        
-
-        
-
-        for (int j = 0; j < rooms[i].length; j++){
-
-            move(rooms[i].TopLeft_y,rooms[i].TopLeft_x + j);
-
-            printw("_");
-
-
-        }
-
-        for (int j = 0; j <= rooms[i].length; j++){
-
-            move(rooms[i].TopLeft_y+rooms[i].width , rooms[i].TopLeft_x + j);
-
-            printw("_");
-            
-        }
-
-        for (int j = 0; j < rooms[i].width; j++){
-
-            move(rooms[i].TopLeft_y + j+1 ,rooms[i].TopLeft_x);
-
-            printw("|");
-            
-        }
-        
-        for (int j = 0; j < rooms[i].width; j++){
-
-            move(rooms[i].TopLeft_y + j+1 ,rooms[i].TopLeft_x + rooms[i].length);
-
-            printw("|");
-            
-        }
-
-        for ( int j = 0; j < 2; j++ ){
-
-            move(rooms[i].doors[j][1],rooms[i].doors[j][0]);
-            printw("+");
-
-        }
-
-        
-    }
-
-
 
 }
