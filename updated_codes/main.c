@@ -4,6 +4,8 @@
 #include <ncurses.h>
 #include <string.h>
 #include <unistd.h>
+#include <math.h>
+#define LEVEL 4
 #define cols 119
 #define lines 34
 
@@ -27,6 +29,23 @@ int setting_phase = 0;
 int room_count = 6;
 
 
+// ROOMS
+
+
+typedef struct 
+{
+
+    int TopLeft_x;
+    int TopLeft_y;
+    int length;
+    int width;
+    int door_count;
+    int doors[100][2];
+
+} Room ;
+
+Room rooms[4][6];
+
 // BOARD
 
 typedef struct{
@@ -37,7 +56,7 @@ typedef struct{
 
 } tile;
 
-tile board[4][lines][cols];
+tile board[LEVEL][lines][cols];
 
 
 // Player info
@@ -105,6 +124,15 @@ int main(){
 
             for (int i = 0; i < 4; i++){
                 create_gameboard(i);
+                create_hallway(0,1,i);
+                create_hallway(1,2,i);
+                create_hallway(2,3,i);
+                create_hallway(3,5,i);
+                create_hallway(5,4,i);
+                create_hallway(4,3,i);
+                create_hallway(3,1,i);
+                // create_hallway(0,1,i);
+                // create_hallway(0,1,i);
             }         
 
             newgame_phase = 0;
