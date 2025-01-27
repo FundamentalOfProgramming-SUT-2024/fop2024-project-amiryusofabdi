@@ -8,7 +8,6 @@
 #define lines 34
 
 // Phases
-int current_level = 0;
 int welcome_phase = 1;      
 int signup_or_signin_phase = 0; 
 int signup_phase = 0;
@@ -40,6 +39,23 @@ typedef struct{
 
 tile board[4][lines][cols];
 
+
+// Player info
+
+typedef struct
+{
+
+    int gold;
+    int strength;
+    int armor;
+    int hits;
+    int level;
+    int experience;
+
+}PLAYER ;
+
+PLAYER player_status;
+
 // Functions
 
 #include "welcomepage.h"
@@ -49,7 +65,7 @@ tile board[4][lines][cols];
 #include "menu.h"
 #include "newgame.h"
 #include "printmap.h"
-
+#include "massages.h"
 
 // Main
 int main(){
@@ -93,12 +109,18 @@ int main(){
 
             newgame_phase = 0;
             continue_prevgame_phase = 1;
+            player_status.gold = 0;
+            player_status.hits = 12;
+            player_status.armor = 5;
+            player_status.level = 1;
+            player_status.strength = 16;
+            player_status.experience = 1;
 
         }
 
         if ( continue_prevgame_phase ){
-
-            printboard(current_level);
+            status();
+            printboard(player_status.level-1);
 
         }
 

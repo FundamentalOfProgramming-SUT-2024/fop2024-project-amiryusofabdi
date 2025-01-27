@@ -10,9 +10,7 @@ typedef struct
 
 } Room ;
 
-
 Room rooms[6];
-
 
 
 void create_rooms(){
@@ -23,10 +21,15 @@ void create_rooms(){
     for ( int i = 0; i < 6; i++ ){
 
         rooms[i].length = rand() % (MAX_LENGTH-12) + 6;
-        rooms[i].width = rand() % (MAX_WIDTH-8) + 6;
+        
 
         rooms[i].TopLeft_x = (COLS/3 * (i%3)) + rand() % ( MAX_LENGTH - rooms[i].length );
-        rooms[i].TopLeft_y = (LINES/2 * (i/3))  + rand() % ( MAX_WIDTH - rooms[i].width );
+        do{
+
+            rooms[i].width = rand() % (MAX_WIDTH-8) + 6;
+            rooms[i].TopLeft_y = (LINES/2 * (i/3))  + rand() % ( MAX_WIDTH - rooms[i].width ) + 2;
+
+        }while( (rooms[i].TopLeft_y+rooms[i].width) >= (LINES-4) );
 
     }
 
@@ -127,8 +130,22 @@ void create_doors(){
 
 
     }
+    
+}
+
+// hallway
+
+// 1->2     2->3        3->6        6->5    5->4    4->3    3->2    2->1
+
+
+//  1:RU    2:RD    3:LU    4:LD
+
+int check_position(int first_room, int second_room){
+
+    
 
 }
+
 
 void create_gameboard(int level){
 
@@ -173,6 +190,15 @@ void create_gameboard(int level){
 
 
             board[level][rooms[i].doors[j][1]][rooms[i].doors[j][0]].type = '+';
+
+        }
+
+        for (int j=rooms[i].TopLeft_y+1; j < (rooms[i].TopLeft_y+rooms[i].width); j++){
+
+            for (int k=rooms[i].TopLeft_x+1; k < (rooms[i].TopLeft_x+rooms[i].length); k++){
+                board[level][j][k].type = '.';
+            }
+
 
         }
 
