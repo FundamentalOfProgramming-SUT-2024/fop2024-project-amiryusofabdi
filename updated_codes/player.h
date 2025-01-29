@@ -6,7 +6,7 @@ void spawn_player(int level){
     player_status.x = rooms[level][RoomNumber].TopLeft_x + 1 + rand() % ( rooms[level][RoomNumber].length - 2 ); 
     player_status.y = rooms[level][RoomNumber].TopLeft_y + 1 + rand() % ( rooms[level][RoomNumber].width - 2 ); 
 
-    board[level][player_status.y][player_status.y].type = '&';
+    board[level][player_status.y][player_status.x].type = '&';
 
 }
 
@@ -46,25 +46,25 @@ void update_player(){
                 break;
             
 
-            case 'h':
+            case 'a':
 
                 x_move = -1;
                 y_move = 0;
                 break;    
 
-            case 'j':
+            case 'w':
                 
                 x_move = 0;
                 y_move = -1;
                 break;
 
-            case 'k':
+            case 's':
                 
                 x_move = 0;
                 y_move = 1;
                 break;
 
-            case 'l':
+            case 'd':
                 
                 x_move = 1;
                 y_move = 0;
