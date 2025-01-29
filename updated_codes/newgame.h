@@ -83,6 +83,7 @@ void create_gameboard(int level){
             for (int k=rooms[level][i].TopLeft_x+1; k < (rooms[level][i].TopLeft_x+rooms[level][i].length); k++){
                 board[level][j][k].type = '.';
                 board[level][j][k].main_type = 0;
+                board[level][j][k].room_info = i;
             }
 
 

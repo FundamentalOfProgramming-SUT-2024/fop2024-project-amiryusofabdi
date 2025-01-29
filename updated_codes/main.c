@@ -5,9 +5,12 @@
 #include <string.h>
 #include <unistd.h>
 #include <math.h>
+#include <locale.h>
 #define LEVEL 4
 #define cols 119
 #define lines 34
+#define RIAL "\u{FDFC}"
+#define POUND "\u{00A3}"
 
 
 // Phases
@@ -30,8 +33,18 @@ int setting_phase = 0;
 int room_count = 6;
 
 
-// ROOMS
+// ITEMS
 
+typedef struct
+{
+    int x;
+    int y;
+    int amount;
+    int type;               // 0 for normal     1 for black
+
+} GOLD ;
+
+// ROOMS
 
 typedef struct 
 {
@@ -43,6 +56,8 @@ typedef struct
     int PillarCount;
     int pillar_x;
     int pillar_y;
+    int gold_count;
+    GOLD golds[10];
 
 
 } Room ;
@@ -56,7 +71,7 @@ typedef struct{
     int visible;
     char type;
     int main_type;              // 0 for Inside of rooms        1 for Hallways          2 for Doors
-
+    int room_info;              // -1 for outside of rooms;
 
 } tile;
 
@@ -93,9 +108,11 @@ PLAYER player_status;
 #include "printmap.h"
 #include "massages.h"
 #include "player.h"
+#include "items.h"
 
 // Main
 int main(){
+
 
 
     initscr();
@@ -103,6 +120,24 @@ int main(){
     time_t begin = time(NULL);
     keypad(stdscr,TRUE);
     srand(time(NULL));
+    setlocale(LC_ALL, "");
+
+
+    for (int i = 0; i < LEVEL; i++){
+
+        for (int j = 0; j < LINES; j++){
+
+            for (int k = 0; k < COLS; k++){
+
+                board[i][j][k].room_info = -1;
+
+            }
+
+        }
+
+    }
+
+
 
     while (1){
 
@@ -152,6 +187,7 @@ int main(){
             player_status.strength = 16;
             player_status.experience = 1;
             spawn_player(player_status.level-1);
+            spawn_gold(1,player_status.level-1,0,3);        // last number goes up -> normal gold goes up!
 
         }
 
@@ -164,7 +200,7 @@ int main(){
             
         }
 
-
+        
         refresh();
     }
 
