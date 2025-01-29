@@ -9,6 +9,7 @@
 #define cols 119
 #define lines 34
 
+
 // Phases
 int welcome_phase = 1;      
 int signup_or_signin_phase = 0; 
@@ -39,8 +40,10 @@ typedef struct
     int TopLeft_y;
     int length;
     int width;
-    int door_count;
-    int doors[100][2];
+    int PillarCount;
+    int pillar_x;
+    int pillar_y;
+
 
 } Room ;
 
@@ -71,6 +74,9 @@ typedef struct
     int level;
     int experience;
 
+    int x;
+    int y;
+
 }PLAYER ;
 
 PLAYER player_status;
@@ -85,6 +91,7 @@ PLAYER player_status;
 #include "newgame.h"
 #include "printmap.h"
 #include "massages.h"
+#include "player.h"
 
 // Main
 int main(){
@@ -143,13 +150,17 @@ int main(){
             player_status.level = 1;
             player_status.strength = 16;
             player_status.experience = 1;
+            spawn_player(player_status.level-1);
 
         }
 
         if ( continue_prevgame_phase ){
+            
             status();
+            update_player();
             printboard(player_status.level-1);
-
+            
+            
         }
 
 

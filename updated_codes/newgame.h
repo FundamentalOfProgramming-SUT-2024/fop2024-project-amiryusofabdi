@@ -19,108 +19,22 @@ void create_rooms(int level){
 
         }while( (rooms[level][i].TopLeft_y+rooms[level][i].width) >= (LINES-4) );
 
+        int size = rooms[level][i].length * rooms[level][i].width;
+
+        rooms[level][i].PillarCount = size / ( 15 + rand()%10 );
+
+        for ( int j = 0; j < rooms[level][i].PillarCount; j++ ){
+
+            rooms[level][i].pillar_x = rooms[level][i].TopLeft_x + 1 + rand() % ( rooms[level][i].length -2 );
+            rooms[level][i].pillar_y = rooms[level][i].TopLeft_y + 1 + rand() % ( rooms[level][i].width -2 );
+
+        }
+
     }
 
 
 }
 
-/*
-void create_doors(){
-
-
-    for (int i = 0; i < room_count; i++){
-
-        
-        int Position = rand()%4;        // 0 -> Top     1 ->  Right     2 ->     Bottom     3 -> Left
-
-        if ( Position == 0 ){
-            
-            int x = rand() % (rooms[i].length - 2);
-
-            rooms[i].doors[0][0] = rooms[i].TopLeft_x + 1 + x;
-            rooms[i].doors[0][1] = rooms[i].TopLeft_y;
-
-        }
-        
-        else if ( Position == 2 ){
-            
-            int x = rand() % (rooms[i].length - 2);
-
-            rooms[i].doors[0][0] = rooms[i].TopLeft_x + 1 + x;
-            rooms[i].doors[0][1] = rooms[i].TopLeft_y + rooms[i].width;
-
-        }
-
-        else if ( Position == 1 ){
-            
-            int y = rand() % (rooms[i].width - 2);
-
-            rooms[i].doors[0][0] = rooms[i].TopLeft_x;
-            rooms[i].doors[0][1] = rooms[i].TopLeft_y + 1 + y;
-
-        }
-        
-        else if ( Position == 3 ){
-            
-            int y = rand() % (rooms[i].width - 2);
-
-            rooms[i].doors[0][0] = rooms[i].TopLeft_x + rooms[i].length;
-            rooms[i].doors[0][1] = rooms[i].TopLeft_y + 1 + y;
-
-        }
-
-        int FirstDoorPosition = Position;
-
-
-        do{
-
-            Position = rand()%4;        // 0 -> Top     1 ->  Right     2 ->     Bottom     3 -> Left
-
-            if ( Position == 0 ){
-                
-                int x = rand() % (rooms[i].length - 2);
-
-                rooms[i].doors[1][0] = rooms[i].TopLeft_x + 1 + x;
-                rooms[i].doors[1][1] = rooms[i].TopLeft_y;
-
-            }
-            
-            else if ( Position == 2 ){
-                
-                int x = rand() % (rooms[i].length - 2);
-
-                rooms[i].doors[1][0] = rooms[i].TopLeft_x + 1 + x;
-                rooms[i].doors[1][1] = rooms[i].TopLeft_y + rooms[i].width;
-
-            }
-
-            else if ( Position == 1 ){
-                
-                int y = rand() % (rooms[i].width - 2);
-
-                rooms[i].doors[1][0] = rooms[i].TopLeft_x;
-                rooms[i].doors[1][1] = rooms[i].TopLeft_y + 1 + y;
-
-            }
-            
-            else if ( Position == 3 ){
-                
-                int y = rand() % (rooms[i].width - 2);
-
-                rooms[i].doors[1][0] = rooms[i].TopLeft_x + rooms[i].length;
-                rooms[i].doors[1][1] = rooms[i].TopLeft_y + 1 + y;
-
-            }
-
-
-
-        }while( Position == FirstDoorPosition );
-
-
-    }
-
-}
-*/
 
 
 
@@ -170,6 +84,12 @@ void create_gameboard(int level){
                 board[level][j][k].type = '.';
             }
 
+
+        }
+
+        for (int j = 0; j < rooms[level][i].PillarCount; j++){
+
+            board[level][rooms[level][i].pillar_y][rooms[level][i].pillar_x].type = 'O';
 
         }
 
@@ -234,13 +154,13 @@ void create_hallway(int room1, int room2,int level){
 
     permutation(horizontal,vertical,move);
 
-    clear();
-    move(0,0);
-    printw("%d %d %d %d",beginning_tile_x ,beginning_tile_y ,finishing_tile_x ,finishing_tile_y);
-    move(1,0);
-    for (int i = 0; i < horizontal+vertical; i++ ){
-        printw("%d",move[i]);
-    }
+    // clear();
+    // move(0,0);
+    // printw("%d %d %d %d",beginning_tile_x ,beginning_tile_y ,finishing_tile_x ,finishing_tile_y);
+    // move(1,0);
+    // for (int i = 0; i < horizontal+vertical; i++ ){
+    //     printw("%d",move[i]);
+    // }
 
     int current_tile_x = beginning_tile_x;
     int current_tile_y = beginning_tile_y;
@@ -248,6 +168,10 @@ void create_hallway(int room1, int room2,int level){
     for ( int i = 0; i < (horizontal+vertical); i++ ){
 
         if ( board[level][current_tile_y][current_tile_x].type == '.' ){
+            // NOTHING
+        }
+
+        else if ( board[level][current_tile_y][current_tile_x].type == 'O' ){
             // NOTHING
         }
 
@@ -272,10 +196,6 @@ void create_hallway(int room1, int room2,int level){
 
     }
 
-    // board[level][beginning_tile_y][beginning_tile_x].type = '&';
-    // board[level][finishing_tile_y][finishing_tile_x].type = '&';
-    
-    
-    
+
 
 }
