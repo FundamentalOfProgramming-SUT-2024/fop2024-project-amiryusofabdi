@@ -91,7 +91,16 @@ void update_player(){
 
         if ( Allowed2Move(x_move,y_move) ){
             
-            board[player_status.level-1][player_status.y][player_status.x].type = '.';
+            
+            if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 0){
+                board[player_status.level-1][player_status.y][player_status.x].type = '.';
+            }
+            else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 1){
+                board[player_status.level-1][player_status.y][player_status.x].type = '#';
+            }
+            else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 2){
+                board[player_status.level-1][player_status.y][player_status.x].type = '+';
+            }
 
             player_status.x += x_move;
             player_status.y += y_move;

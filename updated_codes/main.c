@@ -55,6 +55,7 @@ typedef struct{
     
     int visible;
     char type;
+    int main_type;              // 0 for Inside of rooms        1 for Hallways          2 for Doors
 
 
 } tile;

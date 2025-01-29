@@ -82,6 +82,7 @@ void create_gameboard(int level){
 
             for (int k=rooms[level][i].TopLeft_x+1; k < (rooms[level][i].TopLeft_x+rooms[level][i].length); k++){
                 board[level][j][k].type = '.';
+                board[level][j][k].main_type = 0;
             }
 
 
@@ -177,11 +178,13 @@ void create_hallway(int room1, int room2,int level){
 
         else if( board[level][current_tile_y][current_tile_x].type == '_' || board[level][current_tile_y][current_tile_x].type == '|' ){
             board[level][current_tile_y][current_tile_x].type = '+';
+            board[level][current_tile_y][current_tile_x].main_type = 2;
         }
 
         else{
 
             board[level][current_tile_y][current_tile_x].type = '#';
+            board[level][current_tile_y][current_tile_x].main_type = 1;
             
         }
 
