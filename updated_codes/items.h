@@ -31,3 +31,5 @@ void spawn_gold(int coefi,int level,int room,int normal_gold_density ){  // coef
 
 
 }
+
+

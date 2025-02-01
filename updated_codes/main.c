@@ -11,6 +11,7 @@
 #define lines 34
 #define USD "\u{0024}"
 #define POUND "\u{00A3}"
+#define STAIR "\u{2934}"
 
 
 // Phases
@@ -33,6 +34,7 @@ int setting_phase = 0;
 int room_count = 6;
 char last_massage_type = NULL;
 int last_gold_found = 0;
+int RoomsWithStairs[4];
 
 
 // ITEMS
@@ -51,7 +53,7 @@ typedef struct
 typedef struct 
 {
 
-    int type;       // 0 for normal   
+    int type;       // 0 for normal   1 for enchant     2 for treasure
     int TopLeft_x;
     int TopLeft_y;
     int length;
@@ -60,6 +62,9 @@ typedef struct
     int pillar_x;
     int pillar_y;
     int gold_count;
+    int stairs;         
+    int stairs_x;
+    int stairs_y;
     GOLD golds[10];
 
 
@@ -74,6 +79,7 @@ typedef struct{
     int visible;
     char type;
     int main_type;              // 0 for Inside of rooms        1 for Hallways          2 for Doors
+                                // 3 for stairs
     int room_info;              // -1 for outside of rooms;
 
 } tile;
@@ -132,6 +138,7 @@ int main(){
     init_pair(0, COLOR_BLACK, COLOR_BLACK);
     init_pair(1,COLOR_YELLOW,COLOR_BLACK);
     init_pair(2,COLOR_GREEN,COLOR_BLACK);
+    init_pair(3,COLOR_CYAN,COLOR_BLACK);
 
     bkgd(COLOR_PAIR(0));
 
@@ -178,6 +185,11 @@ int main(){
 
         if ( newgame_phase ){
 
+            RoomsWithStairs[0] = rand()%6;
+            RoomsWithStairs[1] = rand()%6;
+            RoomsWithStairs[2] = rand()%6;
+            RoomsWithStairs[3] = rand()%6;
+        
             for (int i = 0; i < 4; i++){
                 create_gameboard(i);
                 create_hallway(0,1,i);
@@ -198,7 +210,7 @@ int main(){
             player_status.strength = 16;
             player_status.experience = 1;
             spawn_player(player_status.level-1);
-            spawn_gold(1,player_status.level-1,0,3);        // last number goes up -> normal gold goes up!
+            // spawn_gold(1,player_status.level-1,0,3);        // last number goes up -> normal gold goes up!
 
         }
 

@@ -18,6 +18,13 @@ void printboard(int level){
                 attroff(COLOR_PAIR(1));
 
             }       
+            else if ( board[level][i][j].type == 's' ){
+
+                attron(COLOR_PAIR(3));
+                printw(STAIR);
+                attroff(COLOR_PAIR(3));
+
+            }
             else{
                 printw("%c",board[level][i][j].type);
             }

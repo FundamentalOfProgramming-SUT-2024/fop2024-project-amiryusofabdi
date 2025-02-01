@@ -14,7 +14,9 @@ int Allowed2Move(int x, int y){
 
     char new_tile = board[player_status.level-1][player_status.y + y][player_status.x + x].type;
     
-    if ( new_tile == '#' || new_tile == '+' || new_tile == '.' || new_tile == 'b' || new_tile == 'g'){
+    if ( new_tile == '#' || new_tile == '+' || new_tile == '.' || new_tile == 'b' || new_tile == 'g'
+        || new_tile == 's'
+    ){
         
         return 1;
     }
@@ -101,6 +103,9 @@ void update_player(){
             }
             else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 2){
                 board[player_status.level-1][player_status.y][player_status.x].type = '+';
+            }
+            else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 3){
+                board[player_status.level-1][player_status.y][player_status.x].type = 's';
             }
 
             player_status.x += x_move;

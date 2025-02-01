@@ -8,16 +8,34 @@ void create_rooms(int level){
 
     for ( int i = 0; i < 6; i++ ){
 
-        rooms[level][i].length = rand() % (MAX_LENGTH-12) + 6;
+
+        if ( RoomsWithStairs[level] == i && level != 0){
+
+            rooms[level][i].length = rooms[level-1][i].length;
+            rooms[level][i].width = rooms[level-1][i].width;
+            rooms[level][i].TopLeft_x = rooms[level-1][i].TopLeft_x;
+            rooms[level][i].TopLeft_y = rooms[level-1][i].TopLeft_y;
+            
+        }
+
+
+
+
+        else{
+            rooms[level][i].stairs = 0;
+            rooms[level][i].length = rand() % (MAX_LENGTH-12) + 6;
         
 
-        rooms[level][i].TopLeft_x = (COLS/3 * (i%3)) + rand() % ( MAX_LENGTH - rooms[level][i].length );
-        do{
+            rooms[level][i].TopLeft_x = (COLS/3 * (i%3)) + rand() % ( MAX_LENGTH - rooms[level][i].length );
+            do{
 
-            rooms[level][i].width = rand() % (MAX_WIDTH-8) + 6;
-            rooms[level][i].TopLeft_y = (LINES/2 * (i/3))  + rand() % ( MAX_WIDTH - rooms[level][i].width ) + 2;
+                rooms[level][i].width = rand() % (MAX_WIDTH-8) + 6;
+                rooms[level][i].TopLeft_y = (LINES/2 * (i/3))  + rand() % ( MAX_WIDTH - rooms[level][i].width ) + 2;
 
-        }while( (rooms[level][i].TopLeft_y+rooms[level][i].width) >= (LINES-4) );
+            }while( (rooms[level][i].TopLeft_y+rooms[level][i].width) >= (LINES-4) );
+
+            
+        }
 
         int size = rooms[level][i].length * rooms[level][i].width;
 
@@ -29,6 +47,17 @@ void create_rooms(int level){
             rooms[level][i].pillar_y = rooms[level][i].TopLeft_y + 1 + rand() % ( rooms[level][i].width -2 );
 
         }
+
+        if ( RoomsWithStairs[level] == i ){
+
+            rooms[level][i].stairs = 1;
+            rooms[level][i].stairs_x = rooms[level][i].TopLeft_x + 1 + ( rand() % (rooms[level][i].length-2) );
+            rooms[level][i].stairs_y = rooms[level][i].TopLeft_y + 1 + ( rand() % (rooms[level][i].width-2) );
+
+
+        }
+
+
 
     }
 
@@ -92,6 +121,13 @@ void create_gameboard(int level){
         for (int j = 0; j < rooms[level][i].PillarCount; j++){
 
             board[level][rooms[level][i].pillar_y][rooms[level][i].pillar_x].type = 'O';
+
+        }
+
+        if ( RoomsWithStairs[level] == i ){
+
+            board[level][rooms[level][i].stairs_y][rooms[level][i].stairs_x].type = 's';
+            board[level][rooms[level][i].stairs_y][rooms[level][i].stairs_x].main_type = 3;
 
         }
 
