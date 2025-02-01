@@ -6,12 +6,17 @@ void printboard(int level){
             move(i,j);
             if (board[level][i][j].type == 'b'){                       // black gold
                 
-                player_status.gold += 
+                attron(COLOR_PAIR(2));
+                printw(USD);
+                attroff(COLOR_PAIR(2));
 
-                printw(POUND);
             }
             else if ( board[level][i][j].type == 'g' ){               // normal gold
-                printw(RIAL);
+                
+                attron(COLOR_PAIR(1));
+                printw(USD);
+                attroff(COLOR_PAIR(1));
+
             }       
             else{
                 printw("%c",board[level][i][j].type);

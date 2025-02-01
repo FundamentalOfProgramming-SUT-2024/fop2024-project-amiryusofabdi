@@ -9,7 +9,7 @@
 #define LEVEL 4
 #define cols 119
 #define lines 34
-#define RIAL "\u{FDFC}"
+#define USD "\u{0024}"
 #define POUND "\u{00A3}"
 
 
@@ -49,6 +49,7 @@ typedef struct
 typedef struct 
 {
 
+    int type;       // 0 for normal   
     int TopLeft_x;
     int TopLeft_y;
     int length;
@@ -121,6 +122,16 @@ int main(){
     keypad(stdscr,TRUE);
     srand(time(NULL));
     setlocale(LC_ALL, "");
+    start_color();
+
+
+    // COLORS
+    init_color(COLOR_YELLOW,1000,800,0);
+    init_pair(0, COLOR_BLACK, COLOR_BLACK);
+    init_pair(1,COLOR_YELLOW,COLOR_BLACK);
+    init_pair(2,COLOR_GREEN,COLOR_BLACK);
+
+    bkgd(COLOR_PAIR(0));
 
 
     for (int i = 0; i < LEVEL; i++){
@@ -174,8 +185,6 @@ int main(){
                 create_hallway(5,4,i);
                 create_hallway(4,3,i);
                 create_hallway(3,1,i);
-                // create_hallway(0,1,i);
-                // create_hallway(0,1,i);
             }         
 
             newgame_phase = 0;

@@ -113,7 +113,23 @@ void update_player(){
     }
 
 
+    for ( int i = 0; i < 6; i++ ){
 
+        for ( int k = 0; k < rooms[player_status.level-1]->gold_count ; k++ ){
+
+            if ( rooms[player_status.level-1]->golds[k].x == player_status.x &&
+                rooms[player_status.level-1]->golds[k].y == player_status.y
+             ){
+
+                player_status.gold += rooms[player_status.level-1]->golds[k].amount;
+                rooms[player_status.level-1]->golds[k].amount = 0;
+
+
+             }
+
+        }
+
+    }
 
 
 }
