@@ -234,8 +234,7 @@ int main(){
         if ( last_massage_type == 'g' ){
             massage('g');
         }
-        move(0,0);
-        printw("%d",player_status.level);
+        
         refresh();
     }
 
