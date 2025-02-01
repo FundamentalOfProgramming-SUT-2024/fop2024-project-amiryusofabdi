@@ -34,7 +34,7 @@ int setting_phase = 0;
 int room_count = 6;
 char last_massage_type = NULL;
 int last_gold_found = 0;
-int RoomsWithStairs[4];
+int RoomsWithStairs[3];
 
 
 // ITEMS
@@ -187,9 +187,14 @@ int main(){
         if ( newgame_phase ){
 
             RoomsWithStairs[0] = rand()%6;
-            RoomsWithStairs[1] = rand()%6;
-            RoomsWithStairs[2] = rand()%6;
-            RoomsWithStairs[3] = rand()%6;
+            do{
+                RoomsWithStairs[1] = rand()%6;
+            }while( RoomsWithStairs[1] == RoomsWithStairs[0] );
+
+            do{
+                RoomsWithStairs[2] = rand()%6;
+            }while ( (RoomsWithStairs[2] == RoomsWithStairs[0]) || (RoomsWithStairs[2] == RoomsWithStairs[1]) );
+            
         
             for (int i = 0; i < 4; i++){
                 create_gameboard(i);

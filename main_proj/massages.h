@@ -1,6 +1,13 @@
-void massage(){
+void massage(char type){
+
+    move (0,0);
+
+    if (type == 'g'){
+        printw("You found %d gold pieces!",last_gold_found);
+    }
 
 }
+
 
 void status(){
 

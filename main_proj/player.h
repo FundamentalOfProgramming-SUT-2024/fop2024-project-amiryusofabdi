@@ -6,7 +6,7 @@ void spawn_player(int level){
     player_status.x = rooms[level][RoomNumber].TopLeft_x + 1 + rand() % ( rooms[level][RoomNumber].length - 2 ); 
     player_status.y = rooms[level][RoomNumber].TopLeft_y + 1 + rand() % ( rooms[level][RoomNumber].width - 2 ); 
 
-    board[level][player_status.y][player_status.x].type = '&';
+    board[level][player_status.y][player_status.x].type = '@';
 
 }
 
@@ -14,7 +14,10 @@ int Allowed2Move(int x, int y){
 
     char new_tile = board[player_status.level-1][player_status.y + y][player_status.x + x].type;
     
-    if ( new_tile == '#' || new_tile == '+' || new_tile == '.'){
+    if ( new_tile == '#' || new_tile == '+' || new_tile == '.' || new_tile == 'b' || new_tile == 'g'
+        || new_tile == 's'
+    ){
+        
         return 1;
     }
     return 0;
@@ -29,9 +32,10 @@ void update_player(){
 
 
     if ( key != ERR ){
+        
         clear();
         int x_move,y_move;
-
+        // mvprintw(0,10,"%c",key);
         switch (key){
 
             case 'u':
@@ -82,6 +86,15 @@ void update_player(){
                 y_move = 1;
                 break;
 
+            case '.':
+
+                if ( rooms[player_status.level-1][RoomsWithStairs[player_status.level-1]].stairs_x == player_status.x &&
+                   rooms[player_status.level-1][RoomsWithStairs[player_status.level-1]].stairs_y == player_status.y &&
+                   player_status.level <= 4
+                    ){
+                        player_status.level ++;
+                    }
+
             default:
                 x_move = 0;
                 y_move = 0;
@@ -101,18 +114,40 @@ void update_player(){
             else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 2){
                 board[player_status.level-1][player_status.y][player_status.x].type = '+';
             }
+            else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 3){
+                board[player_status.level-1][player_status.y][player_status.x].type = 's';
+            }
 
             player_status.x += x_move;
             player_status.y += y_move;
 
-            board[player_status.level-1][player_status.y][player_status.x].type = '&';
+            board[player_status.level-1][player_status.y][player_status.x].type = '@';
             
         }
 
     }
 
 
+    for ( int i = 0; i < 6; i++ ){
 
+        for ( int k = 0; k < rooms[player_status.level-1]->gold_count ; k++ ){
+
+            if ( rooms[player_status.level-1]->golds[k].x == player_status.x &&
+                rooms[player_status.level-1]->golds[k].y == player_status.y
+                 && (rooms[player_status.level-1]->golds[k].amount != 0)){
+
+                
+                last_gold_found = rooms[player_status.level-1]->golds[k].amount;
+                player_status.gold += rooms[player_status.level-1]->golds[k].amount;
+                rooms[player_status.level-1]->golds[k].amount = 0;
+                last_massage_type = 'g';
+                
+
+            }
+
+        }
+
+    }
 
 
 }
