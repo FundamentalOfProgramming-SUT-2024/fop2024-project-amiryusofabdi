@@ -4,6 +4,19 @@ void printboard(int level){
 
         for (int j = 0; j < COLS; j++){
             move(i,j);
+
+            if ( board[level][i][j].type == '@' ){
+                printw("@");
+                continue;
+            }
+            if ( board[level][i][j].room_info == 2 ){
+                attron(COLOR_PAIR(1));
+            }
+            else if ( board[level][i][j].room_info == 1 ){
+                attron(COLOR_PAIR(4));
+            }
+
+
             if (board[level][i][j].type == 'b'){                       // black gold
                 
                 attron(COLOR_PAIR(2));
@@ -28,6 +41,18 @@ void printboard(int level){
             else{
                 printw("%c",board[level][i][j].type);
             }
+
+
+
+            if ( board[level][i][j].room_info == 2 ){
+                attroff(COLOR_PAIR(1));
+            }
+            else if ( board[level][i][j].room_info == 1 ){
+                attroff(COLOR_PAIR(4));
+            }
+
+
+
         }
 
     }

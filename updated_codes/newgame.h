@@ -240,3 +240,48 @@ void create_hallway(int room1, int room2,int level){
 
 }
 
+void Assign_RoomType(){
+
+    for (int i = 0; i < 4; i++){
+        for (int j = 0; j < 6; j++){
+            rooms[i][j].type = 0;
+
+            for (int y = rooms[i][j].TopLeft_y; y <= (rooms[i][j].TopLeft_y + rooms[i][j].width);y++){
+                for (int x = rooms[i][j].TopLeft_x; x <= (rooms[i][j].TopLeft_x + rooms[i][j].length);x++){
+                    board[i][y][x].room_info = 0;
+                }
+            }
+
+        }
+    }
+
+    //  Assigning Treasure Room
+
+    int RoomNum = rand() % 6;
+    rooms[3][RoomNum].type = 2;
+
+    for (int y = rooms[3][RoomNum].TopLeft_y; y <= (rooms[3][RoomNum].TopLeft_y + rooms[3][RoomNum].width);y++){
+        for (int x = rooms[3][RoomNum].TopLeft_x; x <= (rooms[3][RoomNum].TopLeft_x + rooms[3][RoomNum].length);x++){
+            board[3][y][x].room_info = 2;
+        }
+    }
+
+    // Assigning Enchant Room
+
+    rooms[0][RoomsWithStairs[0]].type = 1;
+    rooms[1][RoomsWithStairs[1]].type = 1;
+    rooms[2][RoomsWithStairs[2]].type = 1;
+
+    for (int k = 0; k < 3; k++){
+
+        for (int y = rooms[k][RoomsWithStairs[k]].TopLeft_y; y <= (rooms[k][RoomsWithStairs[k]].TopLeft_y + rooms[k][RoomsWithStairs[k]].width);y++){
+            for (int x = rooms[k][RoomsWithStairs[k]].TopLeft_x; x <= (rooms[k][RoomsWithStairs[k]].TopLeft_x + rooms[k][RoomsWithStairs[k]].length);x++){
+                board[k][y][x].room_info = 1;
+            }
+        }
+
+
+    }
+
+
+}

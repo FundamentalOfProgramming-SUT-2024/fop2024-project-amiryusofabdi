@@ -65,6 +65,7 @@ typedef struct
     int stairs;         
     int stairs_x;
     int stairs_y;
+    int normal_gold_density;        // a number between 5 and 10
     GOLD golds[10];
 
 
@@ -80,7 +81,9 @@ typedef struct{
     char type;
     int main_type;              // 0 for Inside of rooms        1 for Hallways          2 for Doors
                                 // 3 for stairs
-    int room_info;              // -1 for outside of rooms;
+    int room_info;              // -1 for outside of rooms      0 for normal
+                                // 1 for enchant        2 for treasure
+
 
 } tile;
 
@@ -93,7 +96,7 @@ typedef struct
 {
 
     int gold;
-    int strength;
+    int health;
     int armor;
     int hits;
     int level;
@@ -140,6 +143,7 @@ int main(){
     init_pair(1,COLOR_YELLOW,COLOR_BLACK);
     init_pair(2,COLOR_GREEN,COLOR_BLACK);
     init_pair(3,COLOR_CYAN,COLOR_BLACK);
+    init_pair(4,COLOR_MAGENTA,COLOR_BLACK);
 
     bkgd(COLOR_PAIR(0));
 
@@ -210,13 +214,33 @@ int main(){
             newgame_phase = 0;
             continue_prevgame_phase = 1;
             player_status.gold = 0;
-            player_status.hits = 12;
+            player_status.hits = 100;
             player_status.armor = 5;
             player_status.level = 1;
-            player_status.strength = 16;
+            player_status.health = 200;
             player_status.experience = 1;
+
             spawn_player(player_status.level-1);
-            // spawn_gold(1,player_status.level-1,0,3);        // last number goes up -> normal gold goes up!
+            
+            Assign_RoomType();
+
+            // Spawn Golds
+
+            for (int i = 0; i < 4; i++){
+                for (int j = 0; j < 6; j++){
+
+                    if ( rooms[i][j].type == 0){
+                        spawn_gold(1,i,j,3);
+                    }
+                    else if ( rooms[i][j].type == 1){
+                        spawn_gold(1,i,j,3);
+                    }
+                    else if ( rooms[i][j].type == 2){
+                        spawn_gold(1,i,j,3);
+                    }
+
+                }
+            }
 
         }
 

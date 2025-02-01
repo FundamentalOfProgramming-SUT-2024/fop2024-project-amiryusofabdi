@@ -35,7 +35,6 @@ void update_player(){
         
         clear();
         int x_move,y_move;
-        // mvprintw(0,10,"%c",key);
         switch (key){
 
             case 'u':
@@ -132,14 +131,14 @@ void update_player(){
 
         for ( int k = 0; k < rooms[player_status.level-1]->gold_count ; k++ ){
 
-            if ( rooms[player_status.level-1]->golds[k].x == player_status.x &&
-                rooms[player_status.level-1]->golds[k].y == player_status.y
-                 && (rooms[player_status.level-1]->golds[k].amount != 0)){
+            if ( rooms[player_status.level-1][i].golds[k].x == player_status.x &&
+                rooms[player_status.level-1][i].golds[k].y == player_status.y
+                 && (rooms[player_status.level-1][i].golds[k].amount != 0)){
 
                 
-                last_gold_found = rooms[player_status.level-1]->golds[k].amount;
-                player_status.gold += rooms[player_status.level-1]->golds[k].amount;
-                rooms[player_status.level-1]->golds[k].amount = 0;
+                last_gold_found = rooms[player_status.level-1][i].golds[k].amount;
+                player_status.gold += rooms[player_status.level-1][i].golds[k].amount;
+                rooms[player_status.level-1][i].golds[k].amount = 0;
                 last_massage_type = 'g';
                 
 

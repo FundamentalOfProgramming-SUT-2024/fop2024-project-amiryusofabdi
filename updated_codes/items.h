@@ -1,8 +1,9 @@
-void spawn_gold(int coefi,int level,int room,int normal_gold_density ){  // coefi * size / 30
+void spawn_gold(int coefi,int level,int room,int normal_gold_density ){  // coefi * size / 50
 
     int room_size = rooms[level][room].length * rooms[level][room].width;
 
-    rooms[level][room].gold_count = coefi * room_size / 50;
+    rooms[level][room].gold_count = coefi * room_size / 70;
+    
     for (int i = 0; i < rooms[level][room].gold_count; i++){
 
         rooms[level][room].golds[i].x = rooms[level][room].TopLeft_x + 1 + rand() % (rooms[level][room].length-2);
