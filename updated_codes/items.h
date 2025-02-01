@@ -34,3 +34,19 @@ void spawn_gold(int coefi,int level,int room,int normal_gold_density ){  // coef
 }
 
 
+void spawn_potion(int coefi, int level, int room){
+
+    int room_size = rooms[level][room].length * rooms[level][room].width;
+    rooms[level][room].gold_count = coefi * room_size / 100;
+
+
+    for (int i = 0; i < rooms[level][room].gold_count; i++){
+
+        rooms[level][room].golds[i].x = rooms[level][room].TopLeft_x + 1 + rand() % (rooms[level][room].length-2);
+        rooms[level][room].golds[i].y = rooms[level][room].TopLeft_y + 1 + rand() % (rooms[level][room].width-2);
+        
+        
+
+    }
+
+}

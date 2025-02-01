@@ -48,6 +48,17 @@ typedef struct
 
 } GOLD ;
 
+typedef struct 
+{
+    
+    int type;       // 0 for health     1 for speed     2 for Damage
+    int x;
+    int y;
+
+
+} POTION;
+
+
 // ROOMS
 
 typedef struct 
@@ -62,11 +73,13 @@ typedef struct
     int pillar_x;
     int pillar_y;
     int gold_count;
+    int potion_count;
     int stairs;         
     int stairs_x;
     int stairs_y;
     int normal_gold_density;        // a number between 5 and 10
     GOLD golds[10];
+    POTION potions[10];
 
 
 } Room ;
