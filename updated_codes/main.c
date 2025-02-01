@@ -31,6 +31,8 @@ int scoreboard_phase = 0;
 int profile_phase = 0;
 int setting_phase = 0;
 int room_count = 6;
+char last_massage_type = NULL;
+int last_gold_found = 0;
 
 
 // ITEMS
@@ -209,7 +211,10 @@ int main(){
             
         }
 
-        
+        if ( last_massage_type == 'g' ){
+            massage('g');
+        }
+
         refresh();
     }
 
