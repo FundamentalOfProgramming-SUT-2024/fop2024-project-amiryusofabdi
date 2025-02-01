@@ -118,6 +118,7 @@ PLAYER player_status;
 #include "massages.h"
 #include "player.h"
 #include "items.h"
+#include "inputs.h"
 
 // Main
 int main(){
@@ -219,6 +220,8 @@ int main(){
             status();
             update_player();
             printboard(player_status.level-1);
+            check_up();
+
             
             
         }
@@ -226,9 +229,12 @@ int main(){
         if ( last_massage_type == 'g' ){
             massage('g');
         }
-
+        move(0,0);
+        printw("%d",player_status.level);
         refresh();
     }
+
+    
 
 
     endwin();

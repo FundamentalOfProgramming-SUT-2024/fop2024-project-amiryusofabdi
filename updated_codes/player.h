@@ -32,9 +32,10 @@ void update_player(){
 
 
     if ( key != ERR ){
+        
         clear();
         int x_move,y_move;
-
+        // mvprintw(0,10,"%c",key);
         switch (key){
 
             case 'u':
@@ -84,6 +85,15 @@ void update_player(){
                 x_move = 1;
                 y_move = 1;
                 break;
+
+            case '.':
+
+                if ( rooms[player_status.level-1][RoomsWithStairs[player_status.level-1]].stairs_x == player_status.x &&
+                   rooms[player_status.level-1][RoomsWithStairs[player_status.level-1]].stairs_y == player_status.y &&
+                   player_status.level <= 4
+                    ){
+                        player_status.level ++;
+                    }
 
             default:
                 x_move = 0;
