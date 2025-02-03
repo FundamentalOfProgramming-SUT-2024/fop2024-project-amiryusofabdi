@@ -20,7 +20,7 @@ int signup_or_signin_phase = 0;
 int signup_phase = 0;
 int signin_phase = 0;
 int guest_phase = 0;
-int menu_phase = 1;
+int menu_phase = 0;
 int newgame_hover = 1;
 int continue_prevgame_hover = 0;
 int scoreboard_hover = 0;
@@ -38,6 +38,8 @@ int RoomsWithStairs[3];
 int potions[3]; // 0 for health 1 for speed 2 for damage
 char last_potion_found;
 int speed_activate;
+char player_username[100];
+
 
 
 // ITEMS
@@ -186,21 +188,27 @@ int main(){
 
         time_t now = time(NULL);
 
-        // if ( welcome_phase ){
-        //     welcome_page(begin,now);
-        // }
+        if ( welcome_phase ){
+            welcome_page(begin,now);
+        }
 
-        // if ( signup_or_signin_phase ){
-        //     signup_or_signin_page();
-        // }
+        if ( signup_or_signin_phase ){
+            signup_or_signin_page();
+        }
 
-        // if ( signup_phase ){
-        //     signup_page();
-        // }
+        if ( signup_phase ){
+            signup_page();
+        }
 
-        // if ( signin_phase ){
-        //     signin_page();
-        // }
+        if ( signin_phase ){
+            signin_page();
+        }
+
+        if ( guest_phase ){
+            strcpy(player_username,"Guest");
+            guest_phase = 0;
+            menu_phase = 1;
+        }
 
         if ( menu_phase ){
             menu_page();        
@@ -276,6 +284,7 @@ int main(){
                 }
             }
 
+            last_massage_type = 'w';
         }
 
         if ( continue_prevgame_phase ){

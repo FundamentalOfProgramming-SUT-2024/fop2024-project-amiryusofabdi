@@ -2,8 +2,8 @@ void massage(char type){
 
     move (0,0);
 
-    if (type == '!'){
-
+    if (type == 'w'){
+        printw("Dear %s, Enjoy the game!",player_username);
     }
 
     else if (type == 'g'){

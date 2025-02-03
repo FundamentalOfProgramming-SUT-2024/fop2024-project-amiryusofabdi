@@ -234,6 +234,7 @@ void signup_page(){
     clear();
     signup_phase = 0;
     menu_phase = 1;
+    strcpy(player_username,username);
 
 
 }
