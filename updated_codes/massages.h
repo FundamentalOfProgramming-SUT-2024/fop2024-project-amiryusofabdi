@@ -2,10 +2,25 @@ void massage(char type){
 
     move (0,0);
 
-    if (type == 'g'){
+    if (type == NULL){
+
+    }
+
+    else if (type == 'g'){
         printw("You found %d gold pieces!",last_gold_found);
     }
 
+    else if ( type == 'p'){
+        printw("You picked up Health Potion!");
+    }
+
+    else if ( type == 'l'){
+        printw("You picked up Speed Potion!");
+    }
+
+    else if ( type == 'k'){
+        printw("You picked up Damage Potion!");
+    }
 }
 
 

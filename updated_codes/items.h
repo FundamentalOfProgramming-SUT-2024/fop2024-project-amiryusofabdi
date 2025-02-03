@@ -42,6 +42,7 @@ void spawn_potion(int coefi, int level, int room){
     
     for (int i = 0; i < rooms[level][room].potion_count; i++){
 
+        rooms[level][room].potions[i].picked_up = 0;
         rooms[level][room].potions[i].x = rooms[level][room].TopLeft_x + 1 + rand() % (rooms[level][room].length-2);
         rooms[level][room].potions[i].y = rooms[level][room].TopLeft_y + 1 + rand() % (rooms[level][room].width-2);
         

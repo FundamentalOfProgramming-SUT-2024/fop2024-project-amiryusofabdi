@@ -29,7 +29,7 @@ void update_player(){
     timeout(0);
     noecho();
     int key = getch();
-
+    int t;
 
     if ( key != ERR ){
         
@@ -85,7 +85,6 @@ void update_player(){
                 y_move = 1;
                 break;
 
-            case 'p':
 
             case '.':
 
@@ -145,6 +144,47 @@ void update_player(){
                 player_status.gold += rooms[player_status.level-1][i].golds[k].amount;
                 rooms[player_status.level-1][i].golds[k].amount = 0;
                 last_massage_type = 'g';
+                
+
+            }
+
+            if ( rooms[player_status.level-1][i].potions[k].x == player_status.x &&
+                rooms[player_status.level-1][i].potions[k].y == player_status.y
+                 && (rooms[player_status.level-1][i].potions[k].picked_up == 0) &&
+                rooms[player_status.level-1][i].potions[k].type == 0
+                 ){
+
+                
+            
+                potions[0] ++;
+                rooms[player_status.level-1][i].potions[k].picked_up = 1;
+                last_massage_type = 'p';
+                
+
+            }
+            else if ( rooms[player_status.level-1][i].potions[k].x == player_status.x &&
+                rooms[player_status.level-1][i].potions[k].y == player_status.y
+                 && (rooms[player_status.level-1][i].potions[k].picked_up == 0) &&
+                rooms[player_status.level-1][i].potions[k].type == 1
+                 ){
+
+                
+                potions[1] ++;
+                rooms[player_status.level-1][i].potions[k].picked_up = 1;
+                last_massage_type = 'l';
+                
+
+            }
+            else if ( rooms[player_status.level-1][i].potions[k].x == player_status.x &&
+                rooms[player_status.level-1][i].potions[k].y == player_status.y
+                 && (rooms[player_status.level-1][i].potions[k].picked_up == 0) &&
+                rooms[player_status.level-1][i].potions[k].type == 2
+                 ){
+
+                
+                potions[2] ++;
+                rooms[player_status.level-1][i].potions[k].picked_up = 1;
+                last_massage_type = 'k';
                 
 
             }

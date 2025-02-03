@@ -133,8 +133,19 @@ void create_gameboard(int level){
 
         for ( int k = 0; k < rooms[level][i].potion_count; k++ ){
 
-            board[level][rooms[level][i].potions[k].y][rooms[level][i].potions[k].x].type = 's';
-            board[level][rooms[level][i].stairs_y][rooms[level][i].stairs_x].main_type = 3;
+            if (rooms[level][i].potions[k].type == 0){
+                board[level][rooms[level][i].potions[k].y][rooms[level][i].potions[k].x].type = 'p';
+                board[level][rooms[level][i].stairs_y][rooms[level][i].stairs_x].main_type = 4;
+            }
+            else if (rooms[level][i].potions[k].type == 1){
+                board[level][rooms[level][i].potions[k].y][rooms[level][i].potions[k].x].type = 'l';
+                board[level][rooms[level][i].stairs_y][rooms[level][i].stairs_x].main_type = 5;
+            }
+            else if (rooms[level][i].potions[k].type == 2){
+                board[level][rooms[level][i].potions[k].y][rooms[level][i].potions[k].x].type = 'k';
+                board[level][rooms[level][i].stairs_y][rooms[level][i].stairs_x].main_type = 6;
+            }
+            
 
         }
 

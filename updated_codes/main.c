@@ -35,7 +35,8 @@ int room_count = 6;
 char last_massage_type = NULL;
 int last_gold_found = 0;
 int RoomsWithStairs[3];
-
+int potions[3]; // 0 for health 1 for speed 2 for damage
+char last_potion_found;
 
 // ITEMS
 
@@ -54,6 +55,7 @@ typedef struct
     int type;       // 0 for health     1 for speed     2 for Damage
     int x;
     int y;
+    int picked_up;
 
 
 } POTION;
@@ -285,10 +287,9 @@ int main(){
             
         }
 
-        if ( last_massage_type == 'g' ){
-            massage('g');
-        }
-        
+        massage(last_massage_type);
+
+
         refresh();
     }
 
