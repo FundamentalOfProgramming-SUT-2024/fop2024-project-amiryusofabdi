@@ -32,11 +32,13 @@ int scoreboard_phase = 0;
 int profile_phase = 0;
 int setting_phase = 0;
 int room_count = 6;
-char last_massage_type = NULL;
+char last_massage_type = '!';
 int last_gold_found = 0;
 int RoomsWithStairs[3];
 int potions[3]; // 0 for health 1 for speed 2 for damage
 char last_potion_found;
+int speed_activate;
+
 
 // ITEMS
 

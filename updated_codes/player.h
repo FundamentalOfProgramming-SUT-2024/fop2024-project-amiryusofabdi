@@ -85,6 +85,10 @@ void update_player(){
                 y_move = 1;
                 break;
 
+            case 'f':
+
+                speed_activate = 1;
+            
 
             case '.':
 
@@ -101,6 +105,35 @@ void update_player(){
                 x_move = 0;
                 y_move = 0;
 
+
+        }
+
+        if ( speed_activate && !(x_move == 0 && y_move == 0)){
+
+            while ( Allowed2Move(x_move,y_move) ){
+            
+            
+                if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 0){
+                    board[player_status.level-1][player_status.y][player_status.x].type = '.';
+                }
+                else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 1){
+                    board[player_status.level-1][player_status.y][player_status.x].type = '#';
+                }
+                else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 2){
+                    board[player_status.level-1][player_status.y][player_status.x].type = '+';
+                }
+                else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 3){
+                    board[player_status.level-1][player_status.y][player_status.x].type = 's';
+                }
+                
+
+                player_status.x += x_move;
+                player_status.y += y_move;
+
+                board[player_status.level-1][player_status.y][player_status.x].type = '@';
+                
+            }
+            speed_activate = 0;
 
         }
 

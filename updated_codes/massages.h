@@ -2,7 +2,7 @@ void massage(char type){
 
     move (0,0);
 
-    if (type == NULL){
+    if (type == '!'){
 
     }
 
