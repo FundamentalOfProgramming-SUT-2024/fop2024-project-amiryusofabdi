@@ -8,6 +8,8 @@
         "signin.h": "c",
         "stdlib.h": "c",
         "signupsigninpage.h": "c",
-        "cstdlib": "cpp"
+        "cstdlib": "cpp",
+        "locale.h": "c",
+        "wchar.h": "c"
     }
 }

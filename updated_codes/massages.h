@@ -21,6 +21,9 @@ void massage(char type){
     else if ( type == 'k'){
         printw("You picked up Damage Potion!");
     }
+    else if ( type == 't' ){
+        printw("You got into a trap!");
+    }
 }
 
 
@@ -30,10 +33,28 @@ void status(){
     printw("Level: %d",player_status.level);
 
     move(LINES-1,12);
-    printw("Health(Max100): %d",player_status.hits);
+    printw("Health: ");
+    for(int i = 0; i < player_status.health; i++){
+        
+        // if ( player_status.health <= 2 ){
+        //     printw(HEART);
+        // }
+        printw(HEART);
+
+    }
 
     move(LINES-1,36);
-    printw("Hunger(Max200): %d",player_status.health);
+    printw("Hunger: ");
+    for(int i = 0; i < player_status.hunger; i++){
+        printw(FOOD);
+    }
+    if ( player_status.hunger < 1 ){
+
+        attron(COLOR_PAIR(5) | A_BLINK);
+        printw("IM HUNGRYYY");
+        attroff(COLOR_PAIR(5) | A_BLINK);
+
+    }               
 
     move(LINES-1,60);
     printw("Gold: %d",player_status.gold);

@@ -57,6 +57,13 @@ void printboard(int level){
                 attroff(COLOR_PAIR(4));
 
             }
+            else if ( board[level][i][j].type == 't' ){
+
+                attron(COLOR_PAIR(5));
+                printw(TRAP);
+                attroff(COLOR_PAIR(5));
+
+            }
             else{
                 printw("%c",board[level][i][j].type);
             }

@@ -15,7 +15,7 @@ int Allowed2Move(int x, int y){
     char new_tile = board[player_status.level-1][player_status.y + y][player_status.x + x].type;
     
     if ( new_tile == '#' || new_tile == '+' || new_tile == '.' || new_tile == 'b' || new_tile == 'g'
-        || new_tile == 's' || new_tile == 'p' || new_tile == 'l' || new_tile == 'k'
+        || new_tile == 's' || new_tile == 'p' || new_tile == 'l' || new_tile == 'k' || new_tile == 't'
     ){
         
         return 1;
@@ -125,6 +125,9 @@ void update_player(){
                 else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 3){
                     board[player_status.level-1][player_status.y][player_status.x].type = 's';
                 }
+                else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 7 ){
+                    board[player_status.level-1][player_status.y][player_status.x].type = 't';
+                }
                 
 
                 player_status.x += x_move;
@@ -152,7 +155,11 @@ void update_player(){
             else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 3){
                 board[player_status.level-1][player_status.y][player_status.x].type = 's';
             }
-            
+            else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 7 ){
+                board[player_status.level-1][player_status.y][player_status.x].type = 't';
+                last_massage_type = 't';
+            }
+                
 
             player_status.x += x_move;
             player_status.y += y_move;
@@ -228,3 +235,12 @@ void update_player(){
 
 
 }
+
+
+// void Check_PlayerStatus(){
+
+//     if ( player_status.hunger == 0 ){
+        
+//     }
+
+// }

@@ -1,5 +1,21 @@
 
+void create_traps(int level){
 
+    for ( int i = 0; i < 6; i++ ){
+
+        int TrapExists = rand() % 2;
+        
+        rooms[level][i].trap_count = TrapExists;
+        
+        if ( TrapExists ){
+
+            rooms[level][i].trap_x = rooms[level][i].TopLeft_x + 1 + (rand() % ( rooms[level][i].length - 2 ));
+            rooms[level][i].trap_y = rooms[level][i].TopLeft_y + 1 + (rand() % ( rooms[level][i].width - 2 ));
+            board[level][rooms[level][i].trap_y][rooms[level][i].trap_x].type = '.';
+            board[level][rooms[level][i].trap_y][rooms[level][i].trap_x].main_type = 7;
+        }
+    }
+}
 
 void create_rooms(int level){
 
@@ -63,9 +79,6 @@ void create_rooms(int level){
 
 
 }
-
-
-
 
 
 void create_gameboard(int level){
