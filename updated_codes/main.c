@@ -69,8 +69,10 @@ int last_hunger_decrease;
 int last_health_decrease;
 int pickedup_foods[4];      // 0 for nomal      1 for topnotch
                             // 2 for expired    3 for magical
-int potion_loop_counter = 0;
-int using_potion_phase = -1;    // -1 for NONE      0 for TOP-NOTCH     1 for Magical     
+int food_loop_counter = 0;
+int using_food_phase = -1;    // -1 for NONE      0 for TOP-NOTCH     1 for Magical     
+int potions_menu_phase = 0;
+
 
 // ITEMS
 
@@ -244,20 +246,20 @@ int main(){
 
     while (1){
 
-        if ( using_potion_phase == 0 || using_potion_phase == 1 ){
-            potion_loop_counter ++;
+        if ( using_food_phase == 0 || using_food_phase == 1 ){
+            food_loop_counter ++;
         }
 
-        if ( potion_loop_counter == POTION_EFFECT ){
+        if ( food_loop_counter == POTION_EFFECT ){
 
-            potion_loop_counter = 0;
-            if ( using_potion_phase == 0){
+            food_loop_counter = 0;
+            if ( using_food_phase == 0){
                 player_status.strength -= 5;
             }
             else{
                 player_status.speed -= 1;
             }
-            using_potion_phase = -1;
+            using_food_phase = -1;
 
         }
 
@@ -400,12 +402,12 @@ int main(){
             }
             else if ( food_menu_phase == 1 ){
                 
-                food_menu();
+                item_menu();
 
             }
+            
 
 
-            // printboard(player_status.level-1);
             check_up();
             
             
@@ -414,7 +416,6 @@ int main(){
         if ( food_menu_phase == 0){
             massage(last_massage_type);
         }
-        // massage(last_massage_type);
 
         refresh();
     }

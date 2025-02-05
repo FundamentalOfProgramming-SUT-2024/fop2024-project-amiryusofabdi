@@ -104,6 +104,7 @@ void update_player(){
                 }
                 
 
+
             case 'x':
 
                 speed_activate = 1;
@@ -180,6 +181,7 @@ void update_player(){
             }
             else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 7 ){
                 board[player_status.level-1][player_status.y][player_status.x].type = 't';
+                player_status.health -= 2;
                 last_massage_type = 't';
             }
             else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 8 ){
