@@ -73,6 +73,7 @@ int using_food_phase = -1;    // -1 for NONE      0 for TOP-NOTCH     1 for Magi
 int potions_menu_phase = 0;
 int pickedup_guns[5];       // 0 for Mace   1 for dagger        2 for Magic-wand
                             // 3 for Normal-Arrow       4 for Sword
+int death = 0;
 
 // ITEMS
 
@@ -267,7 +268,11 @@ int main(){
 
 
     player_status.hunger = 6;
-
+    player_status.gold = 0;
+    player_status.health = 10;
+    player_status.strength = 5;
+    player_status.level = 1;
+    player_status.speed = 1;
 
     while (1){
 
@@ -311,6 +316,11 @@ int main(){
             player_status.health --;
             clear();
 
+        }
+
+        if ( player_status.health <= 0 ){
+            death = 1;
+            continue_prevgame_phase = 0;
         }
 
         time_t now = time(NULL);
@@ -369,11 +379,7 @@ int main(){
 
             newgame_phase = 0;
             continue_prevgame_phase = 1;
-            player_status.gold = 0;
-            player_status.health = 10;
-            player_status.strength = 5;
-            player_status.level = 1;
-            player_status.speed = 1;
+            
 
             spawn_player(player_status.level-1);
             
@@ -439,9 +445,17 @@ int main(){
             
         }
 
-        if ( food_menu_phase == 0){
+        if ( food_menu_phase == 0 && !death){
             massage(last_massage_type);
         }
+
+        if ( death ){
+
+            move(LINES/2 - 1, COLS/2-10);
+            printw("You died ):  R.I.P.");
+
+        }
+
 
         refresh();
     }
