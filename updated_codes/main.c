@@ -3,9 +3,8 @@
 //      zsc
 
 //  x for speed up
-//  f for food menu
-//  g for gun menu
-//  h for potion menu
+//  f for item menu
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -72,9 +71,21 @@ int pickedup_foods[4];      // 0 for nomal      1 for topnotch
 int food_loop_counter = 0;
 int using_food_phase = -1;    // -1 for NONE      0 for TOP-NOTCH     1 for Magical     
 int potions_menu_phase = 0;
-
+int current_weapon = 0;     // 0 for Mace(Default)
+                            // 1 for dagger         2 for magic-wand
+                            // 3 for normal arrow   4 for sword
 
 // ITEMS
+
+typedef struct{
+
+    int x;
+    int y;
+    int type;   // 0 for mace   1 for dagger    2 for Magic-wand    3 for normal arrow 
+                // 4 for sword
+    int picked_up;
+
+} GUN;
 
 typedef struct
 {
@@ -130,9 +141,11 @@ typedef struct
     int trap_x;
     int trap_y;
     int food_count;
+    int gun_count;
     GOLD golds[10];
     POTION potions[10];
     FOOD foods[10];
+    GUN guns[10];
 
 
 } Room ;
