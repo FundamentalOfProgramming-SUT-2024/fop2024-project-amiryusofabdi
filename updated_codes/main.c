@@ -71,11 +71,8 @@ int pickedup_foods[4];      // 0 for nomal      1 for topnotch
 int food_loop_counter = 0;
 int using_food_phase = -1;    // -1 for NONE      0 for TOP-NOTCH     1 for Magical     
 int potions_menu_phase = 0;
-int current_weapon = 0;     // 0 for Mace(Default)
-                            // 1 for dagger         2 for magic-wand
-                            // 3 for normal arrow   4 for sword
-
-int pickedup_guns[5];       
+int pickedup_guns[5];       // 0 for Mace   1 for dagger        2 for Magic-wand
+                            // 3 for Normal-Arrow       4 for Sword
 
 // ITEMS
 
@@ -167,7 +164,7 @@ typedef struct{
                                 //  10 for expired food     11 for magical food
                                 //  12 for dagger    13 for magic-wand
                                 //  14 for normal-arrow     15 for sword
-                                
+
     int room_info;              // -1 for outside of rooms      0 for normal
                                 // 1 for enchant        2 for treasure
 
@@ -188,7 +185,9 @@ typedef struct
     int hunger;
     int level;
     int speed;
-
+    int current_weapon;         // 0 for Mace(Default)
+                                    // 1 for dagger         2 for magic-wand
+                                    // 3 for normal arrow   4 for sword
     int x;
     int y;
 
@@ -237,6 +236,7 @@ int main(){
     srand(time(NULL));
     start_color();
 
+    player_status.current_weapon = 0;
 
 
     // COLORS

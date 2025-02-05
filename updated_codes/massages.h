@@ -94,6 +94,31 @@ void status(){
     move(LINES-1,84);
     printw("Speed: %d",player_status.speed);
 
+    move( LINES-2,96 );
+    printw("Current weapon:");
+    move( LINES-1,96 );
+    switch (player_status.current_weapon)
+    {
+
+        case 0:
+            printw("Mace(\u2692)");
+            break;
+        case 1:
+            printw("Dagger(\U0001F5E1)");
+            break;
+        case 2:
+            printw("Magic-Wand(\U0001FA84)");
+            break;
+        case 3:
+            printw("Normal-Arrow(\u27B3)");
+            break;
+        case 4:
+            printw("Sword(\u2694)");
+            break;
+
+    default:
+        break;
+    }
 
 
 }

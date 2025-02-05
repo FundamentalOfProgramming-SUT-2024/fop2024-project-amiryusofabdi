@@ -204,18 +204,22 @@ void update_player(){
             else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 12 ){
                 board[player_status.level-1][player_status.y][player_status.x].type = '.';
                 last_massage_type = 'd'; 
+                pickedup_guns[1] += 10;
             }   
             else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 13 ){
                 board[player_status.level-1][player_status.y][player_status.x].type = '.';
                 last_massage_type = 'w'; 
+                pickedup_guns[2] += 8;
             }   
             else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 14 ){
                 board[player_status.level-1][player_status.y][player_status.x].type = '.';
                 last_massage_type = 'a'; 
+                pickedup_guns[3] += 20;
             }   
             else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 15 ){
                 board[player_status.level-1][player_status.y][player_status.x].type = '.';
                 last_massage_type = 'v'; 
+                pickedup_guns[4] ++;
             }   
             
 
