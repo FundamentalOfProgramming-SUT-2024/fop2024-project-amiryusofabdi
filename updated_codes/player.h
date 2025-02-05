@@ -86,22 +86,6 @@ void update_player(){
                 y_move = 1;
                 break;
 
-            case 'x':
-
-                speed_activate = 1;
-                
-
-            case '.':
-
-                if ( rooms[player_status.level-1][RoomsWithStairs[player_status.level-1]].stairs_x == player_status.x &&
-                   rooms[player_status.level-1][RoomsWithStairs[player_status.level-1]].stairs_y == player_status.y &&
-                   player_status.level <= 4
-                    ){
-                        player_status.level ++;
-                        last_massage_type = 'f';
-                    }  
-                break;    
-
             case 'f':
 
                 clear();
@@ -120,12 +104,32 @@ void update_player(){
                 }
                 
 
+            case 'x':
+
+                speed_activate = 1;
+                
+
+            case '.':
+
+                if ( rooms[player_status.level-1][RoomsWithStairs[player_status.level-1]].stairs_x == player_status.x &&
+                   rooms[player_status.level-1][RoomsWithStairs[player_status.level-1]].stairs_y == player_status.y &&
+                   player_status.level <= 4
+                    ){
+                        player_status.level ++;
+                        last_massage_type = 'f';
+                    }      
+
+
+
             default:
                 x_move = 0;
                 y_move = 0;
 
 
         }
+
+        x_move *= player_status.speed;
+        y_move *= player_status.speed;
 
         if ( speed_activate && !(x_move == 0 && y_move == 0)){
 
@@ -181,22 +185,18 @@ void update_player(){
             else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 8 ){
                 board[player_status.level-1][player_status.y][player_status.x].type = '.';
                 last_massage_type = 'n';
-                pickedup_foods[0] ++;
             }
             else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 9 ){
                 board[player_status.level-1][player_status.y][player_status.x].type = '.';
                 last_massage_type = 'r';
-                pickedup_foods[1] ++;
             }
             else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 10 ){
                 board[player_status.level-1][player_status.y][player_status.x].type = '.';
                 last_massage_type = 'e';
-                pickedup_foods[2] ++;
             }
             else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 11 ){
                 board[player_status.level-1][player_status.y][player_status.x].type = '.';
                 last_massage_type = 'm'; 
-                pickedup_foods[3] ++;
             }   
 
             player_status.x += x_move;
@@ -211,7 +211,7 @@ void update_player(){
 
     for ( int i = 0; i < 6; i++ ){
 
-        for ( int k = 0; k < rooms[player_status.level-1]->gold_count ; k++ ){
+        for ( int k = 0; k < rooms[player_status.level-1][i].gold_count ; k++ ){
 
             // GOLDS
             if ( rooms[player_status.level-1][i].golds[k].x == player_status.x &&
@@ -226,35 +226,41 @@ void update_player(){
                 
 
             }
+        }
+        for ( int k = 0; k < rooms[player_status.level-1][i].food_count ; k++ ){
+        
+            if ( rooms[player_status.level-1][i].foods[k].x == player_status.x &&
+                rooms[player_status.level-1][i].foods[k].y == player_status.y
+                 && (rooms[player_status.level-1][i].foods[k].picked_up == 0)){
 
-            // FOODS
-            // if ( rooms[player_status.level-1][i].foods[k].x == player_status.x &&
-            //     rooms[player_status.level-1][i].foods[k].y == player_status.y
-            //      && (rooms[player_status.level-1][i].foods[k].picked_up == 0)){
+                switch (board[player_status.level-1][player_status.y][player_status.x].main_type)
+                {
+                    case 8:
+                        last_massage_type = 'n';
+                        pickedup_foods[0] ++;
+                        break;
+                    case 9:
+                        last_massage_type = 'r';
+                        pickedup_foods[1] ++;
+                        break;
+                    case 10:
+                        last_massage_type = 'e';
+                        pickedup_foods[2] ++;
+                        break;
+                    case 11:
+                        last_massage_type = 'm';
+                        pickedup_foods[3] ++;
+                        break;
+                    default:
+                        break;
+                }
 
-            //     switch (board[player_status.level-1][player_status.y][player_status.y].main_type)
-            //     {
-            //         case 8:
-            //             last_massage_type = 'n';
-            //             break;
-            //         case 9:
-            //             last_massage_type = 'r';
-            //             break;
-            //         case 10:
-            //             last_massage_type = 'm';
-            //             break;
-            //         case 11:
-            //             last_massage_type = 'e';
-            //             break;
-            //         default:
-            //             break;
-            //     }
-
-            //     rooms[player_status.level-1][i].foods[k].picked_up = 1;
+                rooms[player_status.level-1][i].foods[k].picked_up = 1;
                 
 
-            // }
-
+            }
+        }
+        for ( int k = 0; k < rooms[player_status.level-1][i].potion_count ; k++ ){
             // POTIONS
             if ( rooms[player_status.level-1][i].potions[k].x == player_status.x &&
                 rooms[player_status.level-1][i].potions[k].y == player_status.y
@@ -303,12 +309,3 @@ void update_player(){
 
 
 }
-
-
-// void Check_PlayerStatus(){
-
-//     if ( player_status.hunger == 0 ){
-        
-//     }
-
-// }

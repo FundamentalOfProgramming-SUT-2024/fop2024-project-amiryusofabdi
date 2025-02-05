@@ -5,5 +5,8 @@ void play_music(char *track_name){
 
     Mix_Music *music = Mix_LoadMUS(track_name);
     Mix_PlayMusic(music, -1);
+    // Mix_FreeMusic(music);
+    // Mix_CloseAudio();
+    // SDL_Quit();
 
 }

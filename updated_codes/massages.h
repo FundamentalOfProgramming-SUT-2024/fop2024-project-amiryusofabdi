@@ -77,10 +77,10 @@ void status(){
     printw("Gold: %d",player_status.gold);
 
     move(LINES-1,72);
-    printw("Armor: %d",player_status.armor);
+    printw("Strength: %d",player_status.strength);
 
     move(LINES-1,84);
-    printw("Exp: %d",player_status.experience);
+    printw("Speed: %d",player_status.speed);
 
 
 
