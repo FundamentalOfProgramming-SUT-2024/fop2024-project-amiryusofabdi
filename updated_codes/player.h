@@ -89,7 +89,7 @@ void update_player(){
             case 'x':
 
                 speed_activate = 1;
-            
+                
 
             case '.':
 
@@ -99,9 +99,26 @@ void update_player(){
                     ){
                         player_status.level ++;
                         last_massage_type = 'f';
-                    }      
+                    }  
+                break;    
 
+            case 'f':
 
+                clear();
+                if ( food_menu_phase == 0 ){
+                    food_menu_phase = 1;
+                    last_hunger_decrease = Hunger_Decrease;
+                    last_health_decrease = Health_Decrease;
+                    Hunger_Decrease = 0;
+                    Health_Decrease = 0;
+
+                }
+                else{
+                    food_menu_phase = 0;
+                    Health_Decrease = last_health_decrease;
+                    Hunger_Decrease = last_hunger_decrease;
+                }
+                
 
             default:
                 x_move = 0;
@@ -164,18 +181,22 @@ void update_player(){
             else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 8 ){
                 board[player_status.level-1][player_status.y][player_status.x].type = '.';
                 last_massage_type = 'n';
+                pickedup_foods[0] ++;
             }
             else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 9 ){
                 board[player_status.level-1][player_status.y][player_status.x].type = '.';
                 last_massage_type = 'r';
+                pickedup_foods[1] ++;
             }
             else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 10 ){
                 board[player_status.level-1][player_status.y][player_status.x].type = '.';
                 last_massage_type = 'e';
+                pickedup_foods[2] ++;
             }
             else if ( board[player_status.level-1][player_status.y][player_status.x].main_type == 11 ){
                 board[player_status.level-1][player_status.y][player_status.x].type = '.';
                 last_massage_type = 'm'; 
+                pickedup_foods[3] ++;
             }   
 
             player_status.x += x_move;

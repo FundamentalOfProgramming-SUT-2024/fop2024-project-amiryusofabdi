@@ -13,6 +13,8 @@
 #include <math.h>
 #include <locale.h>
 #include <wchar.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #define LEVEL 4
 #define cols 119
 #define lines 34
@@ -58,7 +60,11 @@ int Dificulty = 0; //  0 for Normal     1 for Hard
 int loop_counter = 0;
 int Hunger_Decrease = 1;
 int Health_Decrease = 0;
-
+int food_menu_phase = 0;
+int last_hunger_decrease;
+int last_health_decrease;
+int pickedup_foods[4];      // 0 for nomal      1 for topnotch
+                            // 2 for expired    3 for magical
 
 // ITEMS
 
@@ -177,9 +183,15 @@ PLAYER player_status;
 #include "player.h"
 #include "items.h"
 #include "inputs.h"
+#include "item_menus.h"
+#include "music_player.h"
+
 
 // Main
 int main(){
+
+    
+    // play_music("andrew_tate.mp3");
 
     setlocale(LC_ALL, "");
     initscr();
@@ -356,15 +368,25 @@ int main(){
             
             status();
             update_player();
-            printboard(player_status.level-1);
+            
+            if ( food_menu_phase == 0 ){
+                printboard(player_status.level-1);
+            }
+            else if ( food_menu_phase == 1 ){
+                
+                food_menu();
+
+            }
+
             check_up();
 
             
             
         }
 
-        massage(last_massage_type);
-
+        if ( food_menu_phase == 0){
+            massage(last_massage_type);
+        }
 
         refresh();
     }
