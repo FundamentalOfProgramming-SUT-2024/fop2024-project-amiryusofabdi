@@ -1,3 +1,9 @@
+//      qwe
+//      a.d
+//      zsc
+
+//  x for speed up
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -15,7 +21,11 @@
 #define STAIR "\u{2934}"
 #define TRAP "T"
 #define HEART "\u2665"
-#define FOOD "\U0001F355"
+#define PIZZA "\U0001F355"
+#define GREEN_APPLE "\U0001F34F"
+#define SUSHI "\U0001F363"
+#define GRAPES "\U0001F347"
+#define BANANA "\U0001F34C"
 #define NormalLoopCounter 40000
 #define DicifultyCoefficient 10000
 
@@ -72,6 +82,16 @@ typedef struct
 
 } POTION;
 
+typedef struct 
+{
+
+    int type;
+    int x;
+    int y;
+    int picked_up;
+
+
+} FOOD;
 
 // ROOMS
 
@@ -95,8 +115,10 @@ typedef struct
     int trap_count;
     int trap_x;
     int trap_y;
+    int food_count;
     GOLD golds[10];
     POTION potions[10];
+    FOOD foods[10];
 
 
 } Room ;
@@ -111,7 +133,9 @@ typedef struct{
     char type;                  // t for traps
     int main_type;              // 0 for Inside of rooms        1 for Hallways          2 for Doors
                                 // 3 for stairs             4 for potions(health)       5 for potions(speed)
-                                //  6 for potions(damage)   7 for traps
+                                //  6 for potions(damage)   7 for traps     
+                                //  8 for normalfood    9 for top-notch food
+                                //  10 for expired food     11 for magical food
     int room_info;              // -1 for outside of rooms      0 for normal
                                 // 1 for enchant        2 for treasure
 
@@ -199,7 +223,7 @@ int main(){
 
     while (1){
 
-        if ((Hunger_Decrease) &&  (loop_counter ++) == (NormalLoopCounter - Dificulty * DicifultyCoefficient)){
+        if ((continue_prevgame_phase) && (Hunger_Decrease) &&  (loop_counter ++) == (NormalLoopCounter - Dificulty * DicifultyCoefficient)){
 
             loop_counter = 0;
             player_status.hunger --;
@@ -275,6 +299,7 @@ int main(){
                 create_hallway(4,3,i);
                 create_hallway(3,1,i);
                 create_traps(i);
+
             }         
 
             newgame_phase = 0;
@@ -303,6 +328,7 @@ int main(){
                     else if ( rooms[i][j].type == 2){
                         spawn_gold(1,i,j,3);
                     }
+                    spawn_food(i,j);
 
                 }
             }

@@ -24,6 +24,23 @@ void massage(char type){
     else if ( type == 't' ){
         printw("You got into a trap!");
     }
+    else if ( type == 'n' ){
+        printw("You picked up Normal food!");
+    }
+    else if ( type == 'e' ){
+        attron(COLOR_PAIR(5));
+        printw("You picked up Expired food!");
+        attroff(COLOR_PAIR(5));
+    }
+    else if ( type == 'r' ){
+        printw("You picked up Top-Notch food!");
+    }
+    else if ( type == 'm' ){
+        printw("You picked up Magical food!");
+    }
+    else if ( type == 'f' ){
+        printw("You are now on %d floor!",player_status.level);
+    }
 }
 
 
@@ -46,7 +63,7 @@ void status(){
     move(LINES-1,36);
     printw("Hunger: ");
     for(int i = 0; i < player_status.hunger; i++){
-        printw(FOOD);
+        printw(PIZZA);
     }
     if ( player_status.hunger < 1 ){
 

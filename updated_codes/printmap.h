@@ -64,6 +64,35 @@ void printboard(int level){
                 attroff(COLOR_PAIR(5));
 
             }
+
+            //
+            //
+            //      Divar ha bekhatere in unicode ha ydoone shift mokhoran rast!!!!
+            //      fix: replace kardan in unicode ha ba ye char
+            //
+            //
+            //
+
+            else if ( board[level][i][j].type == 'n' ){
+
+                printw("n");
+
+            }
+            else if ( board[level][i][j].type == 'r' ){
+
+                printw("r");
+
+            }
+            else if ( board[level][i][j].type == 'm' ){
+
+                printw("m");
+
+            }
+            else if ( board[level][i][j].type == 'e' ){
+
+                printw("e");
+
+            }
             else{
                 printw("%c",board[level][i][j].type);
             }
