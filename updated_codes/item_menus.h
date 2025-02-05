@@ -85,13 +85,21 @@ void item_menu(){
 
         }
         else if ( ch == '4' ){
-
+            player_status.health = 10;
+            player_status.hunger = 6;
+            potions[0] --;
+            using_potion_phase = 0;
         }
         else if ( ch == '5' ){
+            player_status.speed = 2;
+            potions[1] --;
+            using_potion_phase = 1;
             
         }
         else if ( ch == '6' ){
-            
+            player_status.strength += 5;
+            potions[2] --; 
+            using_potion_phase = 2;
         }
         else if ( ch == '7' ){
             player_status.current_weapon = 0;

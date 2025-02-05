@@ -32,7 +32,7 @@
 #define BANANA "\U0001F34C"
 #define NormalLoopCounter 40000
 #define DicifultyCoefficient 10000
-#define POTION_EFFECT 80000
+#define ITEM_EFFECT 80000
 
 // Phases
 int welcome_phase = 0;      
@@ -74,6 +74,8 @@ int potions_menu_phase = 0;
 int pickedup_guns[5];       // 0 for Mace   1 for dagger        2 for Magic-wand
                             // 3 for Normal-Arrow       4 for Sword
 int death = 0;
+int using_potion_phase = 0; // -1 for NONE   0 for HEAL     1 for Speed   2 for damage
+int potion_loop_counter = 0;
 
 // ITEMS
 
@@ -280,7 +282,7 @@ int main(){
             food_loop_counter ++;
         }
 
-        if ( food_loop_counter == POTION_EFFECT ){
+        if ( food_loop_counter == ITEM_EFFECT ){
 
             food_loop_counter = 0;
             if ( using_food_phase == 0){
@@ -292,6 +294,28 @@ int main(){
             using_food_phase = -1;
 
         }
+
+        if ( using_potion_phase == 0 || using_potion_phase == 1 || using_potion_phase == 2){
+            potion_loop_counter ++;
+        }
+
+        if ( potion_loop_counter == ITEM_EFFECT * 10){
+
+            potion_loop_counter = 0;
+            if ( using_potion_phase == 0){
+
+            }
+            else if (using_potion_phase == 1)  {
+                player_status.speed = 1;
+            }
+            else if (using_potion_phase == 2)  {
+                player_status.strength -= 5;
+            }
+            using_food_phase = -1;
+
+        }
+
+
 
         if ((continue_prevgame_phase) && (Hunger_Decrease) &&  (loop_counter ++) == (NormalLoopCounter - Dificulty * DicifultyCoefficient)){
 
