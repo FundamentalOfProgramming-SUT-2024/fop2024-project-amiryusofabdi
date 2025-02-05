@@ -93,6 +93,20 @@ void printboard(int level){
                 printw("e");
 
             }
+            else if ( board[level][i][j].type == 'd' ){     // dagger
+                printw("\U0001F5E1");   
+            }
+            else if ( board[level][i][j].type == 'w' ){     // magic-wand
+                // printw("\U0001FA84");
+                printw("W");
+            }
+            else if ( board[level][i][j].type == 'a' ){     // normal-arrow
+                printw("\u27B3");
+            }
+            else if ( board[level][i][j].type == 'v' ){     // sword
+                printw("\u2694");
+            }
+            
             else{
                 printw("%c",board[level][i][j].type);
             }

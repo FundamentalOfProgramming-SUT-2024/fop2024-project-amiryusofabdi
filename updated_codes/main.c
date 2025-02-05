@@ -75,6 +75,8 @@ int current_weapon = 0;     // 0 for Mace(Default)
                             // 1 for dagger         2 for magic-wand
                             // 3 for normal arrow   4 for sword
 
+int pickedup_guns[5];       
+
 // ITEMS
 
 typedef struct{
@@ -163,6 +165,9 @@ typedef struct{
                                 //  6 for potions(damage)   7 for traps     
                                 //  8 for normalfood    9 for top-notch food
                                 //  10 for expired food     11 for magical food
+                                //  12 for dagger    13 for magic-wand
+                                //  14 for normal-arrow     15 for sword
+                                
     int room_info;              // -1 for outside of rooms      0 for normal
                                 // 1 for enchant        2 for treasure
 
@@ -215,6 +220,13 @@ int main(){
     pickedup_foods[1] = 0;
     pickedup_foods[2] = 0;
     pickedup_foods[3] = 0;
+
+    pickedup_guns[0] = 1;
+    pickedup_guns[1] = 0;
+    pickedup_guns[2] = 0;
+    pickedup_guns[3] = 0;
+    pickedup_guns[4] = 0;
+
     // play_music("andrew_tate.mp3");
 
     setlocale(LC_ALL, "");
@@ -382,6 +394,7 @@ int main(){
                         spawn_gold(1,i,j,3);
                     }
                     spawn_food(i,j);
+                    spawn_guns(i,j);
 
                 }
             }

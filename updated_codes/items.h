@@ -121,33 +121,54 @@ void spawn_food(int level, int room){
 
 }
 
-void spawn_gold(int coefi,int level,int room,int normal_gold_density ){  // coefi * size / 50
+void spawn_guns(int level,int room){
 
     int room_size = rooms[level][room].length * rooms[level][room].width;
 
-    rooms[level][room].gold_count = coefi * room_size / 70;
+    rooms[level][room].gun_count = room_size / 150;
     
-    for (int i = 0; i < rooms[level][room].gold_count; i++){
+    for (int i = 0; i < rooms[level][room].gun_count; i++){
 
-        rooms[level][room].golds[i].x = rooms[level][room].TopLeft_x + 1 + rand() % (rooms[level][room].length-2);
-        rooms[level][room].golds[i].y = rooms[level][room].TopLeft_y + 1 + rand() % (rooms[level][room].width-2);
+        rooms[level][room].guns[i].x = rooms[level][room].TopLeft_x + 1 + rand() % (rooms[level][room].length-2);
+        rooms[level][room].guns[i].y = rooms[level][room].TopLeft_y + 1 + rand() % (rooms[level][room].width-2);
         
-        int gold_type = ( rand() % normal_gold_density ); // 0 -> black gold         other -> normal
+        int gun_type = ( rand() % 4 ) + 1; //  1 for dagger        2 for maagic-wand
+                                            // 3 for arrow          4 for sword 
         
-        if ( gold_type == 0 ){          // black gold!
+        if ( gun_type == 1 ){          // dagger
             
-            rooms[level][room].golds[i].type = 1;
-            rooms[level][room].golds[i].amount = 80 + rand() % 50;
+            rooms[level][room].guns[i].type = 1;
+            rooms[level][room].guns[i].picked_up = 0;
 
-            board[level][rooms[level][room].golds[i].y][rooms[level][room].golds[i].x].type = 'b';  // b for black gold
-
+            board[level][rooms[level][room].guns[i].y][rooms[level][room].guns[i].x].type = 'd';  // 'd' for dagger
+            board[level][rooms[level][room].guns[i].y][rooms[level][room].guns[i].x].main_type = 12;
 
         }
-        else{                           // normal gold!
+        else if ( gun_type == 2 ){          // magic-wand
+            
+            rooms[level][room].guns[i].type = 2;
+            rooms[level][room].guns[i].picked_up = 0;
 
-            rooms[level][room].golds[i].type = 0;
-            rooms[level][room].golds[i].amount = 20 + rand() % 30;
-            board[level][rooms[level][room].golds[i].y][rooms[level][room].golds[i].x].type = 'g';  // g for normal gold
+            board[level][rooms[level][room].guns[i].y][rooms[level][room].guns[i].x].type = 'w';  // 'w' for wand
+            board[level][rooms[level][room].guns[i].y][rooms[level][room].guns[i].x].main_type = 13;
+
+        }
+        else if ( gun_type == 3 ){             // arrow 
+            
+            rooms[level][room].guns[i].type = 3;
+            rooms[level][room].guns[i].picked_up = 0;
+
+            board[level][rooms[level][room].guns[i].y][rooms[level][room].guns[i].x].type = 'a';  // 'a' for normal arrow
+            board[level][rooms[level][room].guns[i].y][rooms[level][room].guns[i].x].main_type = 14;
+
+        }
+        else if ( gun_type == 4 ){          // sword
+            
+            rooms[level][room].guns[i].type = 4;
+            rooms[level][room].guns[i].picked_up = 0;
+
+            board[level][rooms[level][room].guns[i].y][rooms[level][room].guns[i].x].type = 'v';  // 'v' for sword
+            board[level][rooms[level][room].guns[i].y][rooms[level][room].guns[i].x].main_type = 15;
 
         }
 

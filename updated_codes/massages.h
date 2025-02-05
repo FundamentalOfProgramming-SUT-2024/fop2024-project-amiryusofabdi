@@ -41,6 +41,18 @@ void massage(char type){
     else if ( type == 'f' ){
         printw("You are now on %d floor!",player_status.level);
     }
+    else if ( type == 'd' ){
+        printw("You picked up Dagger!");
+    }
+    else if ( type == 'w' ){
+        printw("You picked up Magic-Wand!");
+    }
+    else if ( type == 'a' ){
+        printw("You picked up Normal-Arrow!");
+    }
+    else if ( type == 'v' ){
+        printw("You picked up Sword!");
+    }
 }
 
 
