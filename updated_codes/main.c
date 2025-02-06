@@ -88,6 +88,14 @@ char songs[5][100];
 int back_flag = 0;
 int map_generated = 0;
 
+
+// Scoreboard Variables
+char usernames[20][100];
+int gathred_golds[20];
+int gathred_points[20];
+int finished_game[20];
+int time_played[20];
+
 // ITEMS
 
 typedef struct{
@@ -392,6 +400,11 @@ int main(){
         }
 
         if ( menu_phase ){
+
+            generate_finishiedgames();
+            generate_username();
+            generate_pointsAndgold();
+            generate_timeplayed();
             menu_page();  
             if ( back_flag ){
                 back_flag = 0;
@@ -565,6 +578,11 @@ int main(){
 
         }
 
+        if (scoreboard_phase){
+
+            scoreboard_page();
+
+        }
 
         if ( newgame_phase && !map_generated){
             
