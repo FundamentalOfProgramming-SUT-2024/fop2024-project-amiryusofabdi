@@ -83,12 +83,14 @@ int choose_color_phase = 0;
 int choose_song_phase = 0;
 int main_setting_phase = 1;
 int icon_color = 1;  //  1:Yellow       2:Green       3:Cyan        4:Magenta     5:Red
-int song_number = 1;
+int song_number = 0;
 char songs[5][100];
 int back_flag = 0;
 int map_generated = 0;
 int scroll_count = 0;
-
+int song_change = 1;
+int first_flag = 1;
+int first_in_enchant = 1;
 
 // Scoreboard Variables
 char usernames[20][100];
@@ -247,7 +249,6 @@ PLAYER player_status;
 #include "massages.h"
 #include "player.h"
 #include "items.h"
-#include "inputs.h"
 #include "item_menus.h"
 #include "music_player.h"
 
@@ -272,7 +273,7 @@ int main(){
     strcpy(songs[3],"cars.mp3");
     strcpy(songs[4],"baby_shark.mp3");
 
-    // play_music("andrew_tate.mp3");
+    // play_music(songs[song_number]);
 
     setlocale(LC_ALL, "");
     initscr();
@@ -319,11 +320,13 @@ int main(){
     player_status.level = 1;
     player_status.speed = 1;
 
-    play_music("cars.mp3");
 
     while (1){
 
-        // play_music("cars.mp3");
+        if ( song_change ){
+            song_change = 0;
+            play_music(songs[song_number]);
+        }
 
         if ( using_food_phase == 0 || using_food_phase == 1 ){
             food_loop_counter ++;
@@ -567,22 +570,37 @@ int main(){
                         clear();
                         main_setting_phase = 1;
                         choose_song_phase = 0;
+                        
 
                     }
 
                     if ( ch == '1' ){
 
+                        if ( song_number != 1 ){
+                            song_change = 1;
+                        }
+
                         clear();
                         song_number = 1;
 
+                        
+
                     }
                     else if ( ch == '2' ){
+
+                        if ( song_number != 2 ){
+                            song_change = 1;
+                        }
 
                         clear();
                         song_number = 2;
 
                     }
                     else if ( ch == '3' ){
+
+                        if ( song_number != 3 ){
+                            song_change = 1;
+                        }
 
                         clear();
                         song_number = 3;
@@ -597,8 +615,22 @@ int main(){
 
         if (scoreboard_phase){
 
+            timeout(0);
+            noecho();
             scoreboard_page();
+            int ch = getch();
+            if ( ch != ERR ){
 
+                if ( ch == 'b' ){
+                    clear();
+                    main_setting_phase = 1;
+                    scoreboard_phase = 0;
+                    
+
+                }
+            
+
+            }
         }
 
         if ( newgame_phase && !map_generated){
@@ -688,12 +720,7 @@ int main(){
                 
                 item_menu();
 
-            }
-            
-
-
-            check_up();
-            
+            }        
             
         }
 
@@ -703,13 +730,27 @@ int main(){
 
         if ( death ){
 
-            move(LINES/2 - 1, COLS/2-10);
+            move(LINES/2 - 5, COLS/2-10);
             printw("You died ):  R.I.P.");
+            mvprintw(LINES/2+-3, COLS/2-5,"GG's");
+            mvprintw(LINES-1,COLS-18,"Press E to exit...");
+
+            timeout(0);
+            noecho();
+            int ch = getch();
+            if ( ch != ERR ){
+
+                if ( ch == 'e' ){
+                    break;
+                }
+
+            }
 
         }
 
 
         refresh();
+        first_flag= 0;
     }
 
     

@@ -9,6 +9,15 @@ void printboard(int level){
                 attron(COLOR_PAIR(icon_color));
                 printw("@");
                 attroff(COLOR_PAIR(icon_color));
+
+                if ( board[level][i][j].room_info == 1 ){
+                    if ( first_in_enchant ){
+                        first_in_enchant = 0;
+                        song_number = 3;
+                        song_change = 1;
+                    }
+                }
+
                 continue;
             }
             if ( board[level][i][j].room_info == 2 ){
@@ -129,6 +138,7 @@ void printboard(int level){
                 attroff(COLOR_PAIR(1));
             }
             else if ( board[level][i][j].room_info == 1 ){
+                
                 attroff(COLOR_PAIR(4));
             }
 

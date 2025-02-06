@@ -1,6 +1,0 @@
-void check_up(){
-
-    
-
-
-}
