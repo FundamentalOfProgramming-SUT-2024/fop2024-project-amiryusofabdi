@@ -179,8 +179,12 @@ void signin_page(){
 
     clear();
 
+    char email[100] = "ali@yahoo.com";      // add manual
+
     signin_phase = 0;
     menu_phase = 1;
     strcpy(player_username,username);
+    strcpy(player_email,email);
+    strcpy(player_password,password);
 
 }

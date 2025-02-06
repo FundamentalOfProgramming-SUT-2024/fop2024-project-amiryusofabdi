@@ -162,7 +162,6 @@ void signup_page(){
         scanw("%s",username);
         
     }
-    
 
     move(LINES/5 + 5, COLS/3 + 10);
     scanw("%s",password);
@@ -235,6 +234,9 @@ void signup_page(){
     signup_phase = 0;
     menu_phase = 1;
     strcpy(player_username,username);
+    strcpy(player_email,email);
+    strcpy(player_password,password);
+    
 
 
 }

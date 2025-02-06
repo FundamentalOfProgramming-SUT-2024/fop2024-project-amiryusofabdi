@@ -31,17 +31,17 @@
 #define GRAPES "\U0001F347"
 #define BANANA "\U0001F34C"
 #define NormalLoopCounter 40000
-#define DicifultyCoefficient 10000
+#define DicifultyCoefficient 20000
 #define ITEM_EFFECT 80000
 
 // Phases
 int welcome_phase = 0;      
-int signup_or_signin_phase = 0; 
+int signup_or_signin_phase = 1; 
 int signup_phase = 0;
 int signin_phase = 0;
 int guest_phase = 0;
-int menu_phase = 1;
-int newgame_hover = 1;
+int menu_phase = 0;
+int newgame_hover = 1;  
 int continue_prevgame_hover = 0;
 int scoreboard_hover = 0;
 int profile_hover = 0;
@@ -59,6 +59,8 @@ int potions[3]; // 0 for health 1 for speed 2 for damage
 char last_potion_found;
 int speed_activate;
 char player_username[100];
+char player_email[100];
+char player_password[100];
 int Dificulty = 0; //  0 for Normal     1 for Hard 
 int loop_counter = 0;
 int Hunger_Decrease = 1;
@@ -76,6 +78,13 @@ int pickedup_guns[5];       // 0 for Mace   1 for dagger        2 for Magic-wand
 int death = 0;
 int using_potion_phase = 0; // -1 for NONE   0 for HEAL     1 for Speed   2 for damage
 int potion_loop_counter = 0;
+int choose_diciculty_phase = 0;
+int choose_color_phase = 0;
+int choose_song_phase = 0;
+int main_setting_phase = 1;
+int icon_color = 1;  //  1:Yellow       2:Green       3:Cyan        4:Magenta     5:Red
+int song_number = 0;
+char songs[5][100];
 
 // ITEMS
 
@@ -205,6 +214,7 @@ PLAYER player_status;
 #include "signup.h"
 #include "signin.h"
 #include "menu.h"
+#include "menupage_options.h"
 #include "newgame.h"
 #include "printmap.h"
 #include "massages.h"
@@ -228,6 +238,12 @@ int main(){
     pickedup_guns[2] = 0;
     pickedup_guns[3] = 0;
     pickedup_guns[4] = 0;
+
+    strcpy(songs[0],"welcome_song.mp3");
+    strcpy(songs[1],"andrew_tate.mp3");
+    strcpy(songs[2],"gole_yakh.mp3");
+    strcpy(songs[3],"cars.mp3");
+    strcpy(songs[4],"baby_shark.mp3");
 
     // play_music("andrew_tate.mp3");
 
@@ -315,8 +331,6 @@ int main(){
 
         }
 
-
-
         if ((continue_prevgame_phase) && (Hunger_Decrease) &&  (loop_counter ++) == (NormalLoopCounter - Dificulty * DicifultyCoefficient)){
 
             loop_counter = 0;
@@ -375,6 +389,167 @@ int main(){
             menu_page();        
         }
 
+        if (profile_phase){
+            
+            profile_page();
+
+        }
+
+        if (setting_phase){
+            timeout(0);
+
+            if ( main_setting_phase ){
+
+                setting_page();
+
+
+                int ch = getch();
+                if ( ch != ERR ){
+
+                    if ( ch == 'b' ){
+                        clear();
+                        setting_phase = 0;
+                        menu_phase = 1;
+
+                    }
+
+                    if ( ch == '1' ){
+
+                        clear();
+                        choose_diciculty_phase = 1;
+                        main_setting_phase = 0;        
+
+
+                    }
+
+                    else if ( ch == '2' ){
+                        
+                        clear();
+                        choose_color_phase = 1;
+                        main_setting_phase = 0;
+
+                    }
+
+                    else if ( ch == '3' ){
+
+                        clear();
+                        choose_song_phase = 1;
+                        main_setting_phase = 0;
+
+                    }
+
+                }
+            }
+
+            if ( choose_diciculty_phase ){
+
+                choose_dificulty_page();
+
+                int ch = getch();
+                if ( ch != ERR ){
+
+                    if ( ch == 'b' ){
+                        clear();
+                        main_setting_phase = 1;
+                        choose_diciculty_phase = 0;
+
+                    }
+
+                    if ( ch == '1' ){
+
+                        Dificulty = 0;
+
+                    }
+                    else if ( ch == '2' ){
+
+                        Dificulty = 1;
+
+                    }
+
+                }
+
+            }
+
+            if ( choose_color_phase ){
+
+                choose_color_page();
+
+                int ch = getch();
+                if ( ch != ERR ){
+
+                    if ( ch == 'b' ){
+                        clear();
+                        main_setting_phase = 1;
+                        choose_color_phase = 0;
+
+                    }
+
+                    if ( ch == '1' ){
+
+                        clear();
+                        icon_color = 1;
+
+                    }
+                    else if ( ch == '2' ){
+
+                        clear();
+                        icon_color = 2;
+
+                    }
+                    else if ( ch == '3' ){
+
+                        clear();
+                        icon_color = 3;
+
+                    }
+                    else if ( ch == '4' ){
+
+                        clear();
+                        icon_color = 4;
+
+                    }
+                    else if ( ch == '5' ){
+
+                        clear();
+                        icon_color = 5;
+
+                    }
+                }                
+
+            }
+
+            if ( choose_song_phase ){
+
+                choose_song_page();
+
+                int ch = getch();
+                if ( ch != ERR ){
+
+                    if ( ch == 'b' ){
+                        clear();
+                        main_setting_phase = 1;
+                        choose_color_phase = 0;
+
+                    }
+
+                    if ( ch == '1' ){
+
+                        clear();
+                        icon_color = 1;
+
+                    }
+                    else if ( ch == '2' ){
+
+                        clear();
+                        icon_color = 2;
+
+                    }
+                    
+                }                
+
+            }
+
+        }
         if ( newgame_phase ){
 
             RoomsWithStairs[0] = rand()%6;

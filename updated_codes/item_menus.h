@@ -1,7 +1,7 @@
 void item_menu(){
 
     noecho();
-
+    timeout(0);
     move(LINES/3-10,COLS/2 - 15);
     printw("Choose either of these foods!");
     move(LINES/3-8,COLS/2 - 15);
@@ -84,19 +84,19 @@ void item_menu(){
 
 
         }
-        else if ( ch == '4' ){
+        else if ( ch == '4' && potions[0] > 0){
             player_status.health = 10;
             player_status.hunger = 6;
             potions[0] --;
             using_potion_phase = 0;
         }
-        else if ( ch == '5' ){
+        else if ( ch == '5' && potions[1] > 0){
             player_status.speed = 2;
             potions[1] --;
             using_potion_phase = 1;
             
         }
-        else if ( ch == '6' ){
+        else if ( ch == '6' && potions[2] > 0){
             player_status.strength += 5;
             potions[2] --; 
             using_potion_phase = 2;
@@ -104,17 +104,21 @@ void item_menu(){
         else if ( ch == '7' ){
             player_status.current_weapon = 0;
         }
-        else if ( ch == '8' ){
+        else if ( ch == '8' && pickedup_guns[1] > 0){
             player_status.current_weapon = 1;
+            pickedup_guns[1] --;
         }
-        else if ( ch == '9' ){
+        else if ( ch == '9' && pickedup_guns[2] > 0){
             player_status.current_weapon = 2;
+            pickedup_guns[2] --;
         }
-        else if ( ch == '0s' ){
+        else if ( ch == '0' && pickedup_guns[3] > 0){
             player_status.current_weapon = 3;
+            pickedup_guns[3] --;
         }
-        else if ( ch == '-' ){
+        else if ( ch == '-' && pickedup_guns[4] > 0){
             player_status.current_weapon = 4;
+            pickedup_guns[4] --;
         }
     }
 
