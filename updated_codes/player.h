@@ -38,7 +38,11 @@ void update_player(){
         clear();
         int x_move,y_move;
         switch (key){
-
+            case 'b':
+                clear();
+                back_flag = 1;
+                menu_phase = 1;
+                continue_prevgame_phase = 0;
             case 'e':
                 x_move = 1;
                 y_move = -1;

@@ -6,7 +6,9 @@ void printboard(int level){
             move(i,j);
 
             if ( board[level][i][j].type == '@' ){
+                attron(COLOR_PAIR(icon_color));
                 printw("@");
+                attroff(COLOR_PAIR(icon_color));
                 continue;
             }
             if ( board[level][i][j].room_info == 2 ){

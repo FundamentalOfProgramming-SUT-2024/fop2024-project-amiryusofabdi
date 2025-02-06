@@ -92,9 +92,34 @@ void choose_color_page(){
 
 void choose_song_page(){
 
-    mvprintw(LINES/3-2,COLS/2-5,"1) TopG");
-    mvprintw(LINES/3,COLS/2-5,"2) Gole Yakh");
-    
+
+    if ( song_number == 1 ){
+        attron(COLOR_PAIR(5));
+        mvprintw(LINES/3-2,COLS/2-5,"1) TopG");
+        attroff(COLOR_PAIR(5));   
+        mvprintw(LINES/3,COLS/2-5,"2) Gole Yakh");
+        mvprintw(LINES/3+2,COLS/2-5,"3) Baby-Shark");     
+        
+    }
+    else if ( song_number == 2 ){
+
+        mvprintw(LINES/3-2,COLS/2-5,"1) TopG");
+        attron(COLOR_PAIR(5));
+        mvprintw(LINES/3,COLS/2-5,"2) Gole Yakh");
+        attroff(COLOR_PAIR(5)); 
+        mvprintw(LINES/3+2,COLS/2-5,"3) Baby-Shark");
+
+    }
+    else if ( song_number == 3 ){ 
+
+        mvprintw(LINES/3-2,COLS/2-5,"1) TopG");
+        mvprintw(LINES/3,COLS/2-5,"2) Gole Yakh");
+        attron(COLOR_PAIR(5));
+        mvprintw(LINES/3+2,COLS/2-5,"3) Baby-Shark");
+        attroff(COLOR_PAIR(5)); 
+
+    }
+
 
 
 }

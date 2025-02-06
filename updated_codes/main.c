@@ -83,8 +83,10 @@ int choose_color_phase = 0;
 int choose_song_phase = 0;
 int main_setting_phase = 1;
 int icon_color = 1;  //  1:Yellow       2:Green       3:Cyan        4:Magenta     5:Red
-int song_number = 0;
+int song_number = 1;
 char songs[5][100];
+int back_flag = 0;
+int map_generated = 0;
 
 // ITEMS
 
@@ -292,7 +294,11 @@ int main(){
     player_status.level = 1;
     player_status.speed = 1;
 
+    play_music("cars.mp3");
+
     while (1){
+
+        // play_music("cars.mp3");
 
         if ( using_food_phase == 0 || using_food_phase == 1 ){
             food_loop_counter ++;
@@ -386,7 +392,10 @@ int main(){
         }
 
         if ( menu_phase ){
-            menu_page();        
+            menu_page();  
+            if ( back_flag ){
+                back_flag = 0;
+            }      
         }
 
         if (profile_phase){
@@ -521,27 +530,32 @@ int main(){
             if ( choose_song_phase ){
 
                 choose_song_page();
-
                 int ch = getch();
                 if ( ch != ERR ){
 
                     if ( ch == 'b' ){
                         clear();
                         main_setting_phase = 1;
-                        choose_color_phase = 0;
+                        choose_song_phase = 0;
 
                     }
 
                     if ( ch == '1' ){
 
                         clear();
-                        icon_color = 1;
+                        song_number = 1;
 
                     }
                     else if ( ch == '2' ){
 
                         clear();
-                        icon_color = 2;
+                        song_number = 2;
+
+                    }
+                    else if ( ch == '3' ){
+
+                        clear();
+                        song_number = 3;
 
                     }
                     
@@ -550,8 +564,11 @@ int main(){
             }
 
         }
-        if ( newgame_phase ){
 
+
+        if ( newgame_phase && !map_generated){
+            
+            map_generated = 1;
             RoomsWithStairs[0] = rand()%6;
             do{
                 RoomsWithStairs[1] = rand()%6;
@@ -628,10 +645,10 @@ int main(){
             status();
             update_player();
             
-            if ( food_menu_phase == 0 ){
+            if ( food_menu_phase == 0 && !back_flag){
                 printboard(player_status.level-1);
             }
-            else if ( food_menu_phase == 1 ){
+            else if ( food_menu_phase == 1 && !back_flag){
                 
                 item_menu();
 
