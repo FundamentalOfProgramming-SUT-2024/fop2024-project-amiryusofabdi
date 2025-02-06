@@ -311,7 +311,7 @@ int main(){
             else if (using_potion_phase == 2)  {
                 player_status.strength -= 5;
             }
-            using_food_phase = -1;
+            using_potion_phase = -1;
 
         }
 
