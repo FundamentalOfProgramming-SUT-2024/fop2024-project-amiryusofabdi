@@ -220,9 +220,9 @@ void generate_timeplayed(){
 
 void scoreboard_page(){
 
-    attron(COLOR_PAIR(1) | A_BOLD);
+    attron(COLOR_PAIR(2) | A_BOLD);
     mvprintw(2,COLS/2-5,"Scoreboard");
-    attroff(COLOR_PAIR(1) | A_BOLD);
+    attroff(COLOR_PAIR(2) | A_BOLD);
 
 
     mvprintw(LINES/5-2,COLS/3-30,"Rank");
@@ -234,12 +234,87 @@ void scoreboard_page(){
 
     for ( int i = 0; i < 10; i++ ){
 
-        mvprintw(LINES/5 + 2 * i,COLS/3-30,"%d.",i+1);
-        mvprintw(LINES/5 + 2 * i,COLS/3-20,"%s",usernames[i]);
-        mvprintw(LINES/5 + 2 * i,COLS/3,"%d",gathred_golds[i]);
-        mvprintw(LINES/5 + 2 * i,COLS/3+10,"%d",finished_game[i]);
-        mvprintw(LINES/5 + 2 * i,COLS/3+30,"%d",time_played[i]);
-        mvprintw(LINES/5 + 2 * i,COLS/3+60,"%d",gathred_points[i]);
+        if ( i+scroll_count+1 == 6 ){
+
+            attron(COLOR_PAIR(5) | A_BLINK | A_BOLD);
+            mvprintw(LINES/5 + 2 * i,COLS/3-30,"%d.",i+scroll_count+1);
+            mvprintw(LINES/5 + 2 * i,COLS/3-20,"%s",usernames[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3,"%d",gathred_golds[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3+10,"%d",finished_game[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3+30,"%d",time_played[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3+60,"%d",gathred_points[i+scroll_count]);
+            attroff(COLOR_PAIR(5) | A_BLINK | A_BOLD);
+
+        }
+        else if ( i+scroll_count+1 == 1 ){
+
+            attron(COLOR_PAIR(1));
+            mvprintw(LINES/5 + 2 * i,COLS/3-30,"%d.(\U0001F947)",i+scroll_count+1);
+            mvprintw(LINES/5 + 2 * i,COLS/3-20,"%s(Da Goat)",usernames[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3,"%d",gathred_golds[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3+10,"%d",finished_game[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3+30,"%d",time_played[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3+60,"%d",gathred_points[i+scroll_count]);
+            attroff(COLOR_PAIR(1));
+
+        }
+        else if ( i+scroll_count+1 == 2 ){
+
+            attron(COLOR_PAIR(4));
+            mvprintw(LINES/5 + 2 * i,COLS/3-30,"%d.(\U0001F948)",i+scroll_count+1);
+            mvprintw(LINES/5 + 2 * i,COLS/3-20,"%s(Legend)",usernames[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3,"%d",gathred_golds[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3+10,"%d",finished_game[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3+30,"%d",time_played[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3+60,"%d",gathred_points[i+scroll_count]);
+            attroff(COLOR_PAIR(4));
+
+        }
+        else if ( i+scroll_count+1 == 3 ){
+
+            attron(COLOR_PAIR(3));
+            mvprintw(LINES/5 + 2 * i,COLS/3-30,"%d.(\U0001F949)",i+scroll_count+1);
+            mvprintw(LINES/5 + 2 * i,COLS/3-20,"%s(Hero)",usernames[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3,"%d",gathred_golds[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3+10,"%d",finished_game[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3+30,"%d",time_played[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3+60,"%d",gathred_points[i+scroll_count]);
+            attroff(COLOR_PAIR(3));
+
+        }
+
+
+
+        else{
+            
+            mvprintw(LINES/5 + 2 * i,COLS/3-30,"%d.",i+scroll_count+1);
+            mvprintw(LINES/5 + 2 * i,COLS/3-20,"%s",usernames[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3,"%d",gathred_golds[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3+10,"%d",finished_game[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3+30,"%d",time_played[i+scroll_count]);
+            mvprintw(LINES/5 + 2 * i,COLS/3+60,"%d",gathred_points[i+scroll_count]);
+
+        }
+
+    }
+
+
+    timeout(0);
+    noecho();
+
+    int ch = getch();
+
+    if ( ch != ERR){
+
+        if ( ch == KEY_UP  && scroll_count > 0){
+            clear();
+            scroll_count --;
+            
+        }
+        else if ( ch == KEY_DOWN && scroll_count < 10 ){
+            clear();
+            scroll_count ++;
+        }
 
     }
 

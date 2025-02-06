@@ -87,6 +87,7 @@ int song_number = 1;
 char songs[5][100];
 int back_flag = 0;
 int map_generated = 0;
+int scroll_count = 0;
 
 
 // Scoreboard Variables
