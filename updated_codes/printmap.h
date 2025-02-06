@@ -109,6 +109,16 @@ void printboard(int level){
                 printw("\u2694");
             }
             
+            else if ( board[level][i][j].type == 'D'
+                    || board[level][i][j].type == 'F'
+                    || board[level][i][j].type == 'G'
+                    || board[level][i][j].type == 'S'
+                    || board[level][i][j].type == 'U' ){
+                        attron(COLOR_PAIR(5));
+                        printw("%c",board[level][i][j].type);
+                        attroff(COLOR_PAIR(5));
+                    }
+
             else{
                 printw("%c",board[level][i][j].type);
             }

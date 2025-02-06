@@ -139,15 +139,18 @@ void spawn_guns(int level,int room){
             
             rooms[level][room].guns[i].type = 1;
             rooms[level][room].guns[i].picked_up = 0;
+            rooms[level][room].guns[i].damage = 12;
 
             board[level][rooms[level][room].guns[i].y][rooms[level][room].guns[i].x].type = 'd';  // 'd' for dagger
             board[level][rooms[level][room].guns[i].y][rooms[level][room].guns[i].x].main_type = 12;
+
 
         }
         else if ( gun_type == 2 ){          // magic-wand
             
             rooms[level][room].guns[i].type = 2;
             rooms[level][room].guns[i].picked_up = 0;
+            rooms[level][room].guns[i].damage = 15;
 
             board[level][rooms[level][room].guns[i].y][rooms[level][room].guns[i].x].type = 'w';  // 'w' for wand
             board[level][rooms[level][room].guns[i].y][rooms[level][room].guns[i].x].main_type = 13;
@@ -157,6 +160,7 @@ void spawn_guns(int level,int room){
             
             rooms[level][room].guns[i].type = 3;
             rooms[level][room].guns[i].picked_up = 0;
+            rooms[level][room].guns[i].damage = 5;
 
             board[level][rooms[level][room].guns[i].y][rooms[level][room].guns[i].x].type = 'a';  // 'a' for normal arrow
             board[level][rooms[level][room].guns[i].y][rooms[level][room].guns[i].x].main_type = 14;
@@ -166,11 +170,80 @@ void spawn_guns(int level,int room){
             
             rooms[level][room].guns[i].type = 4;
             rooms[level][room].guns[i].picked_up = 0;
+            rooms[level][room].guns[i].damage = 10;
 
             board[level][rooms[level][room].guns[i].y][rooms[level][room].guns[i].x].type = 'v';  // 'v' for sword
             board[level][rooms[level][room].guns[i].y][rooms[level][room].guns[i].x].main_type = 15;
 
         }
+
+    }
+
+
+}
+
+void spawn_mosnter(int level,int room){
+
+    int room_size = rooms[level][room].length * rooms[level][room].width;
+
+    rooms[level][room].monster_count = room_size / 120;
+    
+    for (int i = 0; i < rooms[level][room].monster_count; i++){
+
+        rooms[level][room].monsters[i].x = rooms[level][room].TopLeft_x + 1 + rand() % (rooms[level][room].length-2);
+        rooms[level][room].monsters[i].y = rooms[level][room].TopLeft_y + 1 + rand() % (rooms[level][room].width-2);
+        
+        int monster_type = rand() % 5;      //  0 for  deamon       1 for fire-breathing-monster
+                                            // 2 for giant      3 for snake     4 for undeed
+        
+        
+
+        if ( monster_type == 0 ){          // dagger
+            
+            board[level][rooms[level][room].monsters[i].y][rooms[level][room].monsters[i].x].type = 'D';  // 'd' for dagger
+            board[level][rooms[level][room].monsters[i].y][rooms[level][room].monsters[i].x].main_type = 16;
+
+            rooms[level][room].monsters[i].type[0] = 5;
+            rooms[level][room].monsters[i].type[1] = 1;
+
+        }
+        else if ( monster_type == 1 ){          // dagger
+            
+            board[level][rooms[level][room].monsters[i].y][rooms[level][room].monsters[i].x].type = 'F';  // 'd' for dagger
+            board[level][rooms[level][room].monsters[i].y][rooms[level][room].monsters[i].x].main_type = 17;
+
+            rooms[level][room].monsters[i].type[0] = 10;
+            rooms[level][room].monsters[i].type[1] = 2;
+
+        }
+        else if ( monster_type == 2 ){          // dagger
+            
+            board[level][rooms[level][room].monsters[i].y][rooms[level][room].monsters[i].x].type = 'G';  // 'd' for dagger
+            board[level][rooms[level][room].monsters[i].y][rooms[level][room].monsters[i].x].main_type = 18;
+
+            rooms[level][room].monsters[i].type[0] = 15;
+            rooms[level][room].monsters[i].type[1] = 3;
+
+        }
+        else if ( monster_type == 3 ){          // dagger
+            
+            board[level][rooms[level][room].monsters[i].y][rooms[level][room].monsters[i].x].type = 'S';  // 'd' for dagger
+            board[level][rooms[level][room].monsters[i].y][rooms[level][room].monsters[i].x].main_type = 19;
+
+            rooms[level][room].monsters[i].type[0] = 20;
+            rooms[level][room].monsters[i].type[1] = 4;
+
+        }
+        else if ( monster_type == 4 ){          // dagger
+            
+            board[level][rooms[level][room].monsters[i].y][rooms[level][room].monsters[i].x].type = 'U';  // 'd' for dagger
+            board[level][rooms[level][room].monsters[i].y][rooms[level][room].monsters[i].x].main_type = 20;
+
+            rooms[level][room].monsters[i].type[0] = 30;
+            rooms[level][room].monsters[i].type[1] = 5;
+
+        }
+    
 
     }
 

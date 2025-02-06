@@ -99,6 +99,15 @@ int time_played[20];
 
 // ITEMS
 
+typedef struct {
+
+    int x;
+    int y;
+    int type[2];    // 0 for health     1 for strength
+
+
+} MONSTER;
+
 typedef struct{
 
     int x;
@@ -106,6 +115,7 @@ typedef struct{
     int type;   // 0 for mace   1 for dagger    2 for Magic-wand    3 for normal arrow 
                 // 4 for sword
     int picked_up;
+    int damage;
 
 } GUN;
 
@@ -164,6 +174,8 @@ typedef struct
     int trap_y;
     int food_count;
     int gun_count;
+    int monster_count;
+    MONSTER monsters[10];
     GOLD golds[10];
     POTION potions[10];
     FOOD foods[10];
@@ -187,6 +199,10 @@ typedef struct{
                                 //  10 for expired food     11 for magical food
                                 //  12 for dagger    13 for magic-wand
                                 //  14 for normal-arrow     15 for sword
+
+                                // 16 for deamon    17 for fire-freathing-monster
+                                // 18 for giant     19 for snake        20 for undeed
+                                
 
     int room_info;              // -1 for outside of rooms      0 for normal
                                 // 1 for enchant        2 for treasure
@@ -636,6 +652,7 @@ int main(){
                     }
                     spawn_food(i,j);
                     spawn_guns(i,j);
+                    spawn_mosnter(i,j);
 
                 }
             }
